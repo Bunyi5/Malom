@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.LaunchController"
+            prefHeight="400.0" prefWidth="600.0">
+    <Label layoutX="180.0" layoutY="77.0" text="Malom" textFill="#0e6612">
+        <font>
+            <Font name="Tahoma" size="80.0"/>
+        </font>
+    </Label>
+    <Label layoutX="60.0" layoutY="238.0" text="Player1:"/>
+    <Label layoutX="310.0" layoutY="238.0" text="Player2:"/>
+    <TextField fx:id="player1TextField" layoutX="105.0" layoutY="233.0" prefHeight="26.0" prefWidth="158.0"/>
+    <TextField fx:id="player2TextField" layoutX="355.0" layoutY="233.0" prefHeight="26.0" prefWidth="158.0"/>
+    <Button layoutX="248.0" layoutY="287.0" mnemonicParsing="false" onAction="#startAction"
+            prefHeight="51.0" prefWidth="105.0" text="Play!"/>
+    <Label fx:id="errorLabel1" layoutX="105.0" layoutY="200.0" prefHeight="16.0" prefWidth="158.0" textFill="#e30e0e"/>
+    <Label fx:id="errorLabel2" layoutX="355.0" layoutY="200.0" prefHeight="16.0" prefWidth="158.0" textFill="#e30e0e"/>
+</AnchorPane>
