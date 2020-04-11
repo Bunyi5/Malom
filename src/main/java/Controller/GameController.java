@@ -6,6 +6,9 @@ import javafx.scene.image.ImageView;
 
 public class GameController {
 
+    private int blackPieces;
+    private int whitePieces;
+
     @FXML
     private ImageView background;
 
