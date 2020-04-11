@@ -21,6 +21,5 @@
     <TextField fx:id="player2TextField" layoutX="355.0" layoutY="233.0" prefHeight="26.0" prefWidth="158.0"/>
     <Button layoutX="248.0" layoutY="287.0" mnemonicParsing="false" onAction="#startAction"
             prefHeight="51.0" prefWidth="105.0" text="Play!"/>
-    <Label fx:id="errorLabel1" layoutX="105.0" layoutY="200.0" prefHeight="16.0" prefWidth="158.0" textFill="#e30e0e"/>
-    <Label fx:id="errorLabel2" layoutX="355.0" layoutY="200.0" prefHeight="16.0" prefWidth="158.0" textFill="#e30e0e"/>
+    <Label fx:id="errorLabel1" layoutX="221.0" layoutY="200.0" prefHeight="16.0" prefWidth="158.0" textFill="#e30e0e"/>
 </AnchorPane>
