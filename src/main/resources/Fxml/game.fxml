@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controller.GameController"
             prefHeight="700.0" prefWidth="600.0">
+
+    <!-- Background -->
     <ImageView fx:id="background" fitHeight="600" fitWidth="600"/>
+
+    <!-- Statistics Info -->
     <Label layoutX="30.0" layoutY="610.0" text="White Pieces:"/>
     <Label layoutX="330.0" layoutY="610.0" text="Black Pieces:"/>
     <Label layoutX="110.0" layoutY="610.0" text="9"/>
     <Label layoutX="410.0" layoutY="610.0" text="9"/>
 
+    <!-- Outside Circle -->
+    <ImageView fx:id="out1" layoutX="0.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out2" layoutX="272.5" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out3" layoutX="545.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out4" layoutX="545.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out5" layoutX="545.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out6" layoutX="272.5" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out7" layoutX="0.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="out8" layoutX="0.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+
+    <!-- Middle Circle -->
+    <ImageView fx:id="mid1" layoutX="90.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid2" layoutX="272.5" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid3" layoutX="455.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid4" layoutX="455.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid5" layoutX="455.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid6" layoutX="272.5" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid7" layoutX="90.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="mid8" layoutX="90.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+
+    <!-- Inside Circle -->
+    <ImageView fx:id="in1" layoutX="180.0" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in2" layoutX="272.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in3" layoutX="362.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in4" layoutX="362.5" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in5" layoutX="362.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in6" layoutX="272.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in7" layoutX="180.0" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+    <ImageView fx:id="in8" layoutX="180.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
 </AnchorPane>
