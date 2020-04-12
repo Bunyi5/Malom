@@ -3,49 +3,114 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controller.GameController"
-            prefHeight="700.0" prefWidth="600.0">
+            prefHeight="700.0" prefWidth="800.0"
+            style="-fx-background-color: FFFFCC;">
 
     <!-- Background -->
-    <ImageView fx:id="background" fitHeight="600" fitWidth="600"/>
+    <ImageView fx:id="background" layoutX="100.0" fitHeight="600" fitWidth="600"/>
 
-    <!-- Statistics Info -->
-    <Label layoutX="30.0" layoutY="610.0" text="White Pieces:"/>
-    <Label layoutX="330.0" layoutY="610.0" text="Black Pieces:"/>
-    <Label layoutX="110.0" layoutY="610.0" text="9"/>
-    <Label layoutX="410.0" layoutY="610.0" text="9"/>
+    <!-- Board -->
+    <Pane fx:id="board" prefHeight="600.0" prefWidth="800.0">
 
-    <!-- Outside Circle -->
-    <ImageView fx:id="out1" layoutX="0.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out2" layoutX="272.5" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out3" layoutX="545.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out4" layoutX="545.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out5" layoutX="545.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out6" layoutX="272.5" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out7" layoutX="0.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="out8" layoutX="0.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <!-- Outside Circle -->
+        <ImageView fx:id="out1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="100.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="645.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="645.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="645.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="100.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="out8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="100.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
-    <!-- Middle Circle -->
-    <ImageView fx:id="mid1" layoutX="90.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid2" layoutX="272.5" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid3" layoutX="455.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid4" layoutX="455.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid5" layoutX="455.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid6" layoutX="272.5" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid7" layoutX="90.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="mid8" layoutX="90.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <!-- Middle Circle -->
+        <ImageView fx:id="mid1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="190.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="555.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="555.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="555.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="190.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="mid8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="190.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
-    <!-- Inside Circle -->
-    <ImageView fx:id="in1" layoutX="180.0" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in2" layoutX="272.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in3" layoutX="362.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in4" layoutX="362.5" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in5" layoutX="362.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in6" layoutX="272.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in7" layoutX="180.0" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-    <ImageView fx:id="in8" layoutX="180.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <!-- Inside Circle -->
+        <ImageView fx:id="in1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="280.0" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="462.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="462.5" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="462.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="372.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="280.0" layoutY="362.5" fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="in8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+                   onDragDone="#dragDone" layoutX="280.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
+
+        <!-- Black Pieces -->
+        <ImageView fx:id="black1" onDragDetected="#drag" onDragDone="#dragDone" layoutY="0.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black2" onDragDetected="#drag" onDragDone="#dragDone" layoutY="55.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black3" onDragDetected="#drag" onDragDone="#dragDone" layoutY="110.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black4" onDragDetected="#drag" onDragDone="#dragDone" layoutY="165.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black5" onDragDetected="#drag" onDragDone="#dragDone" layoutY="220.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black6" onDragDetected="#drag" onDragDone="#dragDone" layoutY="275.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black7" onDragDetected="#drag" onDragDone="#dragDone" layoutY="330.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black8" onDragDetected="#drag" onDragDone="#dragDone" layoutY="385.0" fitHeight="55"
+                   fitWidth="55"/>
+        <ImageView fx:id="black9" onDragDetected="#drag" onDragDone="#dragDone" layoutY="440.0" fitHeight="55"
+                   fitWidth="55"/>
+
+        <!-- White Pieces -->
+        <ImageView fx:id="white1" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="0.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white2" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="55.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white3" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="110.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white4" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="165.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white5" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="220.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white6" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="275.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white7" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="330.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white8" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="385.0"
+                   fitHeight="55" fitWidth="55"/>
+        <ImageView fx:id="white9" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="440.0"
+                   fitHeight="55" fitWidth="55"/>
+
+    </Pane>
 
 </AnchorPane>
