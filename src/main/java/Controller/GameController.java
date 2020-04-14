@@ -1,5 +1,6 @@
 package Controller;
 
+import Malom.MalomState;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -7,6 +8,10 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 public class GameController {
+
+    private MalomState state;
+    private int fromIndex;
+    private int whereIndex;
 
     @FXML
     private ImageView background;
@@ -16,6 +21,8 @@ public class GameController {
 
     @FXML
     public void initialize() {
+
+        state = new MalomState();
 
         background.setImage(new Image(getClass().getResource("/Pictures/board.png").toExternalForm()));
 
@@ -61,6 +68,7 @@ public class GameController {
                     content.putImage(view.getImage());
                     db.setContent(content);
 
+                    fromIndex = i;
                 }
 
                 break;
@@ -114,6 +122,8 @@ public class GameController {
                     view.setImage(db.getImage());
                     view.setOpacity(100.0);
                     dragEvent.setDropCompleted(true);
+
+                    whereIndex = i;
                 }
 
                 break;
@@ -136,6 +146,9 @@ public class GameController {
                     view = (ImageView) board.getChildren().get(i);
                     view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
                     view.setOpacity(0.0);
+
+                    state.swap(fromIndex, whereIndex);
+                    System.out.println(state.toString());
                 }
 
                 break;
