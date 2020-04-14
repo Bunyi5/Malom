@@ -1,6 +1,14 @@
 package Malom;
 
+
+import lombok.Getter;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MalomState {
+
+    @Getter
+    private boolean stage2 = false;
 
     private int[] board = {
             0, 0, 0, 0, 0, 0, 0, 0, //Outside Circle
@@ -34,6 +42,58 @@ public class MalomState {
             }
         }
         return num;
+    }
+
+    public void isStage2Started() {
+        int num = 18;
+        for (int i = 24; i < board.length; i++) {
+            if (board[i] == 0) {
+                num--;
+            }
+        }
+        stage2 = num == 0;
+    }
+
+    public List<Integer> whereCanThePieceMove(int index) {
+        List<Integer> whereToMove = new ArrayList<>();
+
+        if (index % 2 == 0) {
+            whereToMove.add(index + 1);
+            if (index == 0 || index == 8 || index == 16) {
+                whereToMove.add(index + 7);
+            } else {
+                whereToMove.add(index - 1);
+            }
+        } else {
+            if (index < 8) {
+                whereToMove.add(index - 1);
+                whereToMove.add(index + 8);
+                if (index == 7) {
+                    whereToMove.add(0);
+                } else {
+                    whereToMove.add(index + 1);
+                }
+            } else if (index < 16) {
+                whereToMove.add(index - 1);
+                whereToMove.add(index + 8);
+                whereToMove.add(index - 8);
+                if (index == 15) {
+                    whereToMove.add(8);
+                } else {
+                    whereToMove.add(index + 1);
+                }
+            } else {
+                whereToMove.add(index - 1);
+                whereToMove.add(index - 8);
+                if (index == 23) {
+                    whereToMove.add(16);
+                } else {
+                    whereToMove.add(index + 1);
+                }
+            }
+        }
+
+        return whereToMove;
     }
 
     public String toString() {

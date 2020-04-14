@@ -7,11 +7,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameController {
 
     private MalomState state;
     private int fromIndex;
     private int whereIndex;
+    private List<Integer> whereToMove = new ArrayList<>();
 
     @FXML
     private ImageView background;
@@ -59,8 +63,13 @@ public class GameController {
             ClipboardContent content = new ClipboardContent();
             content.putImage(view.getImage());
             db.setContent(content);
+            int index = Integer.parseInt(view.getId());
 
-            fromIndex = Integer.parseInt(view.getId());
+            if (state.isStage2()) {
+                whereToMove = state.whereCanThePieceMove(index);
+            }
+
+            fromIndex = index;
         }
 
     }
@@ -71,10 +80,17 @@ public class GameController {
 
         if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage()) {
 
-            if (view.getOpacity() == 0.0) {
+            if (state.isStage2() && view.getOpacity() == 0.0) {
+
+                int index = Integer.parseInt(view.getId());
+
+                if (whereToMove.contains(index)) {
+                    dragEvent.acceptTransferModes(TransferMode.MOVE);
+                }
+
+            } else if (view.getOpacity() == 0.0) {
                 dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
-
         }
 
     }
@@ -105,6 +121,11 @@ public class GameController {
 
             state.swap(fromIndex, whereIndex);
             System.out.println(state.toString());
+
+            if (!state.isStage2()) {
+                state.isStage2Started();
+            }
+
         }
 
     }
