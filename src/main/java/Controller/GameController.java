@@ -51,53 +51,28 @@ public class GameController {
 
     public void drag(MouseEvent mouseEvent) {
 
-        Dragboard db;
-        ImageView view;
-        ClipboardContent content = new ClipboardContent();
-        String id = ((ImageView) mouseEvent.getSource()).getId();
+        ImageView view = (ImageView) mouseEvent.getSource();
 
-        for (int i = 0; i < board.getChildren().size(); i++) {
+        if (!(view.getOpacity() == 0.0)) {
 
-            if (board.getChildren().get(i).getId().equals(id)) {
+            Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putImage(view.getImage());
+            db.setContent(content);
 
-                db = board.getChildren().get(i).startDragAndDrop(TransferMode.MOVE);
-                view = (ImageView) board.getChildren().get(i);
-
-                if (!(view.getOpacity() == 0.0)) {
-
-                    content.putImage(view.getImage());
-                    db.setContent(content);
-
-                    fromIndex = i;
-                }
-
-                break;
-            }
-
+            fromIndex = Integer.parseInt(view.getId());
         }
 
     }
 
     public void dragOver(DragEvent dragEvent) {
 
-        ImageView view;
-        String id = ((ImageView) dragEvent.getSource()).getId();
+        ImageView view = (ImageView) dragEvent.getSource();
 
-        for (int i = 0; i < board.getChildren().size(); i++) {
+        if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage()) {
 
-            if (board.getChildren().get(i).getId().equals(id)) {
-
-                if (dragEvent.getGestureSource() != board.getChildren().get(i) && dragEvent.getDragboard().hasImage()) {
-
-                    view = (ImageView) board.getChildren().get(i);
-
-                    if (view.getOpacity() == 0.0) {
-                        dragEvent.acceptTransferModes(TransferMode.MOVE);
-                    }
-
-                }
-
-                break;
+            if (view.getOpacity() == 0.0) {
+                dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
 
         }
@@ -106,54 +81,30 @@ public class GameController {
 
     public void drop(DragEvent dragEvent) {
 
-        Dragboard db;
-        ImageView view;
-        String id = ((ImageView) dragEvent.getSource()).getId();
+        ImageView view = (ImageView) dragEvent.getSource();
+        Dragboard db = dragEvent.getDragboard();
 
-        for (int i = 0; i < board.getChildren().size(); i++) {
+        if (db.hasImage()) {
 
-            if (board.getChildren().get(i).getId().equals(id)) {
+            view.setImage(db.getImage());
+            view.setOpacity(100.0);
+            dragEvent.setDropCompleted(true);
 
-                db = dragEvent.getDragboard();
-
-                if (db.hasImage()) {
-
-                    view = (ImageView) board.getChildren().get(i);
-                    view.setImage(db.getImage());
-                    view.setOpacity(100.0);
-                    dragEvent.setDropCompleted(true);
-
-                    whereIndex = i;
-                }
-
-                break;
-            }
-
+            whereIndex = Integer.parseInt(view.getId());
         }
 
     }
 
     public void dragDone(DragEvent dragEvent) {
 
-        ImageView view;
-        String id = ((ImageView) dragEvent.getSource()).getId();
+        if (dragEvent.getTransferMode() == TransferMode.MOVE) {
 
-        for (int i = 0; i < board.getChildren().size(); i++) {
+            ImageView view = (ImageView) dragEvent.getSource();
+            view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
+            view.setOpacity(0.0);
 
-            if (board.getChildren().get(i).getId().equals(id)) {
-
-                if (dragEvent.getTransferMode() == TransferMode.MOVE) {
-                    view = (ImageView) board.getChildren().get(i);
-                    view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
-                    view.setOpacity(0.0);
-
-                    state.swap(fromIndex, whereIndex);
-                    System.out.println(state.toString());
-                }
-
-                break;
-            }
-
+            state.swap(fromIndex, whereIndex);
+            System.out.println(state.toString());
         }
 
     }

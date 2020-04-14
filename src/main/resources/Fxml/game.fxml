@@ -18,97 +18,97 @@
     <Pane fx:id="board" prefHeight="600.0" prefWidth="800.0">
 
         <!-- Outside Circle -->
-        <ImageView fx:id="out1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="0" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="100.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="645.0" layoutY="0.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="645.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="645.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="100.0" layoutY="545.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="out8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="100.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
         <!-- Middle Circle -->
-        <ImageView fx:id="mid1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="190.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="9" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="10" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="555.0" layoutY="90.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="11" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="555.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="12" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="555.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="13" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="14" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="190.0" layoutY="455.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="mid8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="15" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="190.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
         <!-- Inside Circle -->
-        <ImageView fx:id="in1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="16" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="280.0" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="17" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="18" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="462.5" layoutY="180.0" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="19" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="462.5" layoutY="272.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="20" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="462.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="21" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="372.5" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="22" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="280.0" layoutY="362.5" fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="in8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
+        <ImageView fx:id="23" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" layoutX="280.0" layoutY="272.5" fitHeight="55" fitWidth="55"/>
 
         <!-- Black Pieces -->
-        <ImageView fx:id="black1" onDragDetected="#drag" onDragDone="#dragDone" layoutY="0.0" fitHeight="55"
+        <ImageView fx:id="24" onDragDetected="#drag" onDragDone="#dragDone" layoutY="0.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black2" onDragDetected="#drag" onDragDone="#dragDone" layoutY="55.0" fitHeight="55"
+        <ImageView fx:id="25" onDragDetected="#drag" onDragDone="#dragDone" layoutY="55.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black3" onDragDetected="#drag" onDragDone="#dragDone" layoutY="110.0" fitHeight="55"
+        <ImageView fx:id="26" onDragDetected="#drag" onDragDone="#dragDone" layoutY="110.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black4" onDragDetected="#drag" onDragDone="#dragDone" layoutY="165.0" fitHeight="55"
+        <ImageView fx:id="27" onDragDetected="#drag" onDragDone="#dragDone" layoutY="165.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black5" onDragDetected="#drag" onDragDone="#dragDone" layoutY="220.0" fitHeight="55"
+        <ImageView fx:id="28" onDragDetected="#drag" onDragDone="#dragDone" layoutY="220.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black6" onDragDetected="#drag" onDragDone="#dragDone" layoutY="275.0" fitHeight="55"
+        <ImageView fx:id="29" onDragDetected="#drag" onDragDone="#dragDone" layoutY="275.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black7" onDragDetected="#drag" onDragDone="#dragDone" layoutY="330.0" fitHeight="55"
+        <ImageView fx:id="30" onDragDetected="#drag" onDragDone="#dragDone" layoutY="330.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black8" onDragDetected="#drag" onDragDone="#dragDone" layoutY="385.0" fitHeight="55"
+        <ImageView fx:id="31" onDragDetected="#drag" onDragDone="#dragDone" layoutY="385.0" fitHeight="55"
                    fitWidth="55"/>
-        <ImageView fx:id="black9" onDragDetected="#drag" onDragDone="#dragDone" layoutY="440.0" fitHeight="55"
+        <ImageView fx:id="32" onDragDetected="#drag" onDragDone="#dragDone" layoutY="440.0" fitHeight="55"
                    fitWidth="55"/>
 
         <!-- White Pieces -->
-        <ImageView fx:id="white1" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="0.0"
+        <ImageView fx:id="33" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="0.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white2" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="55.0"
+        <ImageView fx:id="34" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="55.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white3" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="110.0"
+        <ImageView fx:id="35" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="110.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white4" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="165.0"
+        <ImageView fx:id="36" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="165.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white5" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="220.0"
+        <ImageView fx:id="37" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="220.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white6" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="275.0"
+        <ImageView fx:id="38" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="275.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white7" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="330.0"
+        <ImageView fx:id="39" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="330.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white8" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="385.0"
+        <ImageView fx:id="40" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="385.0"
                    fitHeight="55" fitWidth="55"/>
-        <ImageView fx:id="white9" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="440.0"
+        <ImageView fx:id="41" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="440.0"
                    fitHeight="55" fitWidth="55"/>
 
     </Pane>
