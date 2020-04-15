@@ -2,6 +2,7 @@ package Malom;
 
 
 import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,10 @@ public class MalomState {
         stage2 = num == 0;
     }
 
+    public void removePiece(int index) {
+        board[index] = 0;
+    }
+
     public List<Integer> whereCanThePieceMove(int index) {
         List<Integer> whereToMove = new ArrayList<>();
 
@@ -94,6 +99,86 @@ public class MalomState {
         }
 
         return whereToMove;
+    }
+
+    public boolean doesBlackHaveMill(int index) {
+
+        if (index % 2 == 0) {
+            if (index == 0 || index == 8 || index == 16) {
+                return board[index] == 1 && board[index + 1] == 1 && board[index + 2] == 1 ||
+                        board[index] == 1 && board[index + 7] == 1 && board[index + 6] == 1;
+            } else {
+                return board[index] == 1 && board[index + 1] == 1 && board[index + 2] == 1 ||
+                        board[index] == 1 && board[index - 1] == 1 && board[index - 2] == 1;
+            }
+        } else {
+            if (index < 8) {
+                if (index == 7) {
+                    return board[index] == 1 && board[index - 1] == 1 && board[0] == 1 ||
+                            board[index] == 1 && board[index + 8] == 1 && board[index + 16] == 1;
+                } else {
+                    return board[index] == 1 && board[index - 1] == 1 && board[index + 1] == 1 ||
+                            board[index] == 1 && board[index + 8] == 1 && board[index + 16] == 1;
+                }
+            } else if (index < 16) {
+                if (index == 15) {
+                    return board[index] == 1 && board[index - 1] == 1 && board[8] == 1 ||
+                            board[index] == 1 && board[index - 8] == 1 && board[index + 8] == 1;
+                } else {
+                    return board[index] == 1 && board[index - 1] == 1 && board[index + 1] == 1 ||
+                            board[index] == 1 && board[index - 8] == 1 && board[index + 8] == 1;
+                }
+            } else {
+                if (index == 23) {
+                    return board[index] == 1 && board[index - 1] == 1 && board[15] == 1 ||
+                            board[index] == 1 && board[index - 8] == 1 && board[index - 16] == 1;
+                } else {
+                    return board[index] == 1 && board[index - 1] == 1 && board[index + 1] == 1 ||
+                            board[index] == 1 && board[index - 8] == 1 && board[index - 16] == 1;
+                }
+            }
+        }
+
+    }
+
+    public boolean doesWhiteHaveMill(int index) {
+
+        if (index % 2 == 0) {
+            if (index == 0 || index == 8 || index == 16) {
+                return board[index] == 2 && board[index + 1] == 2 && board[index + 2] == 2 ||
+                        board[index] == 2 && board[index + 7] == 2 && board[index + 6] == 2;
+            } else {
+                return board[index] == 2 && board[index + 1] == 2 && board[index + 2] == 2 ||
+                        board[index] == 2 && board[index - 1] == 2 && board[index - 2] == 2;
+            }
+        } else {
+            if (index < 8) {
+                if (index == 7) {
+                    return board[index] == 2 && board[index - 1] == 2 && board[0] == 2 ||
+                            board[index] == 2 && board[index + 8] == 2 && board[index + 16] == 2;
+                } else {
+                    return board[index] == 2 && board[index - 1] == 2 && board[index + 1] == 2 ||
+                            board[index] == 2 && board[index + 8] == 2 && board[index + 16] == 2;
+                }
+            } else if (index < 16) {
+                if (index == 15) {
+                    return board[index] == 2 && board[index - 1] == 2 && board[8] == 2 ||
+                            board[index] == 2 && board[index - 8] == 2 && board[index + 8] == 2;
+                } else {
+                    return board[index] == 2 && board[index - 1] == 2 && board[index + 1] == 2 ||
+                            board[index] == 2 && board[index - 8] == 2 && board[index + 8] == 2;
+                }
+            } else {
+                if (index == 23) {
+                    return board[index] == 2 && board[index - 1] == 2 && board[15] == 2 ||
+                            board[index] == 2 && board[index - 8] == 2 && board[index - 16] == 2;
+                } else {
+                    return board[index] == 2 && board[index - 1] == 2 && board[index + 1] == 2 ||
+                            board[index] == 2 && board[index - 8] == 2 && board[index - 16] == 2;
+                }
+            }
+        }
+
     }
 
     public String toString() {

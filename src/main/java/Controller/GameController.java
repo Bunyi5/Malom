@@ -15,6 +15,7 @@ public class GameController {
     private MalomState state;
     private int fromIndex;
     private int whereIndex;
+    private boolean mill = false;
     private List<Integer> whereToMove = new ArrayList<>();
 
     @FXML
@@ -57,7 +58,7 @@ public class GameController {
 
         ImageView view = (ImageView) mouseEvent.getSource();
 
-        if (!(view.getOpacity() == 0.0)) {
+        if (!(view.getOpacity() == 0.0) && !mill) {
 
             Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
@@ -78,9 +79,9 @@ public class GameController {
 
         ImageView view = (ImageView) dragEvent.getSource();
 
-        if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage()) {
+        if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage() && view.getOpacity() == 0.0) {
 
-            if (state.isStage2() && view.getOpacity() == 0.0) {
+            if (state.isStage2()) {
 
                 int index = Integer.parseInt(view.getId());
 
@@ -88,7 +89,7 @@ public class GameController {
                     dragEvent.acceptTransferModes(TransferMode.MOVE);
                 }
 
-            } else if (view.getOpacity() == 0.0) {
+            } else {
                 dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
         }
@@ -107,6 +108,11 @@ public class GameController {
             dragEvent.setDropCompleted(true);
 
             whereIndex = Integer.parseInt(view.getId());
+            state.swap(fromIndex, whereIndex);
+            System.out.println(state.toString());
+
+            mill = state.doesBlackHaveMill(Integer.parseInt(view.getId())) ||
+                    state.doesWhiteHaveMill(Integer.parseInt(view.getId()));
         }
 
     }
@@ -119,15 +125,22 @@ public class GameController {
             view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
-            state.swap(fromIndex, whereIndex);
-            System.out.println(state.toString());
-
             if (!state.isStage2()) {
                 state.isStage2Started();
             }
 
         }
 
+    }
+
+    public void removePiece(MouseEvent mouseEvent) {
+        if (mill) {
+            ImageView view = (ImageView) mouseEvent.getSource();
+            state.removePiece(Integer.parseInt(view.getId()));
+            view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
+            view.setOpacity(0.0);
+            mill = false;
+        }
     }
 
 }
