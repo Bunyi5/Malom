@@ -1,15 +1,17 @@
 package Malom;
 
-
-import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MalomState {
 
-    @Getter
-    private boolean stage2 = false;
+    @Setter
+    private boolean blackTurn = true;
+    private int blackPieceNum = 0;
+    private int whitePieceNum = 0;
 
     private int[] board = {
             0, 0, 0, 0, 0, 0, 0, 0, //Outside Circle
@@ -25,37 +27,36 @@ public class MalomState {
         board[b] = temp;
     }
 
-    public int blackPieceNum() {
-        int num = 0;
-        for (int i = 0; i < 24; i++) {
-            if (board[i] == 1) {
-                num++;
-            }
-        }
-        return num;
+    public boolean isPieceStoreEmpty() {
+        return Arrays.stream(board, 24, 41).sum() == 0;
     }
 
-    public int whitePieceNum() {
-        int num = 0;
-        for (int i = 0; i < 24; i++) {
-            if (board[i] == 2) {
-                num++;
-            }
-        }
-        return num;
+    public boolean isInPieceStore(int index) {
+        return index > 23 || this.isPieceStoreEmpty();
     }
 
-    public void isStage2Started() {
-        int num = 18;
-        for (int i = 24; i < board.length; i++) {
-            if (board[i] == 0) {
-                num--;
-            }
+    public boolean whoIsNext(int index) {
+        if (board[index] == 1 && blackTurn) {
+            return true;
+        } else return board[index] == 2 && !blackTurn;
+    }
+
+    public boolean isBlack(int index) {
+        if (board[index] == 1) {
+            blackPieceNum++;
+            return true;
+        } else {
+            whitePieceNum++;
+            return false;
         }
-        stage2 = num == 0;
     }
 
     public void removePiece(int index) {
+        if (board[index] == 1) {
+            blackPieceNum--;
+        } else {
+            whitePieceNum--;
+        }
         board[index] = 0;
     }
 

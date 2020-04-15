@@ -14,7 +14,6 @@ public class GameController {
 
     private MalomState state;
     private int fromIndex;
-    private int whereIndex;
     private boolean mill = false;
     private List<Integer> whereToMove = new ArrayList<>();
 
@@ -57,16 +56,16 @@ public class GameController {
     public void drag(MouseEvent mouseEvent) {
 
         ImageView view = (ImageView) mouseEvent.getSource();
+        int index = Integer.parseInt(view.getId());
 
-        if (!(view.getOpacity() == 0.0) && !mill) {
+        if (!(view.getOpacity() == 0.0) && !mill && state.whoIsNext(index) && state.isInPieceStore(index)) {
 
             Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
             content.putImage(view.getImage());
             db.setContent(content);
-            int index = Integer.parseInt(view.getId());
 
-            if (state.isStage2()) {
+            if (state.isPieceStoreEmpty()) {
                 whereToMove = state.whereCanThePieceMove(index);
             }
 
@@ -81,7 +80,7 @@ public class GameController {
 
         if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage() && view.getOpacity() == 0.0) {
 
-            if (state.isStage2()) {
+            if (state.isPieceStoreEmpty()) {
 
                 int index = Integer.parseInt(view.getId());
 
@@ -107,12 +106,18 @@ public class GameController {
             view.setOpacity(100.0);
             dragEvent.setDropCompleted(true);
 
-            whereIndex = Integer.parseInt(view.getId());
-            state.swap(fromIndex, whereIndex);
+            int index = Integer.parseInt(view.getId());
+            state.swap(fromIndex, index);
             System.out.println(state.toString());
 
             mill = state.doesBlackHaveMill(Integer.parseInt(view.getId())) ||
                     state.doesWhiteHaveMill(Integer.parseInt(view.getId()));
+
+            if (state.isBlack(index)) {
+                state.setBlackTurn(false);
+            } else {
+                state.setBlackTurn(true);
+            }
         }
 
     }
@@ -125,18 +130,18 @@ public class GameController {
             view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
-            if (!state.isStage2()) {
-                state.isStage2Started();
-            }
-
         }
 
     }
 
     public void removePiece(MouseEvent mouseEvent) {
-        if (mill) {
-            ImageView view = (ImageView) mouseEvent.getSource();
+
+        ImageView view = (ImageView) mouseEvent.getSource();
+        int index = Integer.parseInt(view.getId());
+
+        if (mill && state.whoIsNext(index)) {
             state.removePiece(Integer.parseInt(view.getId()));
+            System.out.println(state.toString());
             view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
             mill = false;
