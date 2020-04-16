@@ -10,8 +10,6 @@ public class MalomState {
 
     @Setter
     private boolean blackTurn = true;
-    private int blackPieceNum = 0;
-    private int whitePieceNum = 0;
 
     private int[] board = {
             0, 0, 0, 0, 0, 0, 0, 0, //Outside Circle
@@ -28,7 +26,7 @@ public class MalomState {
     }
 
     public boolean isPieceStoreEmpty() {
-        return Arrays.stream(board, 24, 41).sum() == 0;
+        return Arrays.stream(board, 24, 42).sum() == 0;
     }
 
     public boolean isInPieceStore(int index) {
@@ -42,22 +40,51 @@ public class MalomState {
     }
 
     public boolean isBlack(int index) {
-        if (board[index] == 1) {
-            blackPieceNum++;
-            return true;
-        } else {
-            whitePieceNum++;
-            return false;
-        }
+        return board[index] == 1;
+    }
+
+    public boolean isWhite(int index) {
+        return board[index] == 2;
+    }
+
+    public int blackPieceNum() {
+        return (int) Arrays.stream(board, 0, 24).filter(num -> num == 1).count();
+    }
+
+    public int whitePieceNum() {
+        return (int) Arrays.stream(board, 0, 24).filter(num -> num == 2).count();
     }
 
     public void removePiece(int index) {
-        if (board[index] == 1) {
-            blackPieceNum--;
-        } else {
-            whitePieceNum--;
-        }
         board[index] = 0;
+    }
+
+    public boolean canItRemovePiece() {
+        int num = 0;
+        if (blackTurn) {
+            for (int i = 0; i < 24; i++) {
+                if (this.isWhite(i) && !this.doesWhiteHaveMill(i)) {
+                    num++;
+                }
+            }
+        } else {
+            for (int i = 0; i < 24; i++) {
+                if (this.isBlack(i) && !this.doesBlackHaveMill(i)) {
+                    num++;
+                }
+            }
+        }
+        return num != 0;
+    }
+
+    public boolean isGameEnded() {
+        return blackPieceNum() < 3 && this.isPieceStoreEmpty() ||
+                whitePieceNum() < 3 && this.isPieceStoreEmpty();
+    }
+
+    public boolean canItJump(int index) {
+        return !this.isBlack(index) && this.whitePieceNum() == 3 ||
+                this.isBlack(index) && this.blackPieceNum() == 3;
     }
 
     public List<Integer> whereCanThePieceMove(int index) {
@@ -108,6 +135,9 @@ public class MalomState {
             if (index == 0 || index == 8 || index == 16) {
                 return board[index] == 1 && board[index + 1] == 1 && board[index + 2] == 1 ||
                         board[index] == 1 && board[index + 7] == 1 && board[index + 6] == 1;
+            } else if (index == 6 || index == 14 || index == 22) {
+                return board[index] == 1 && board[index + 1] == 1 && board[index - 6] == 1 ||
+                        board[index] == 1 && board[index - 1] == 1 && board[index - 2] == 1;
             } else {
                 return board[index] == 1 && board[index + 1] == 1 && board[index + 2] == 1 ||
                         board[index] == 1 && board[index - 1] == 1 && board[index - 2] == 1;
@@ -131,7 +161,7 @@ public class MalomState {
                 }
             } else {
                 if (index == 23) {
-                    return board[index] == 1 && board[index - 1] == 1 && board[15] == 1 ||
+                    return board[index] == 1 && board[index - 1] == 1 && board[16] == 1 ||
                             board[index] == 1 && board[index - 8] == 1 && board[index - 16] == 1;
                 } else {
                     return board[index] == 1 && board[index - 1] == 1 && board[index + 1] == 1 ||
@@ -148,6 +178,9 @@ public class MalomState {
             if (index == 0 || index == 8 || index == 16) {
                 return board[index] == 2 && board[index + 1] == 2 && board[index + 2] == 2 ||
                         board[index] == 2 && board[index + 7] == 2 && board[index + 6] == 2;
+            } else if (index == 6 || index == 14 || index == 22) {
+                return board[index] == 2 && board[index + 1] == 2 && board[index - 6] == 2 ||
+                        board[index] == 2 && board[index - 1] == 2 && board[index - 2] == 2;
             } else {
                 return board[index] == 2 && board[index + 1] == 2 && board[index + 2] == 2 ||
                         board[index] == 2 && board[index - 1] == 2 && board[index - 2] == 2;
@@ -171,7 +204,7 @@ public class MalomState {
                 }
             } else {
                 if (index == 23) {
-                    return board[index] == 2 && board[index - 1] == 2 && board[15] == 2 ||
+                    return board[index] == 2 && board[index - 1] == 2 && board[16] == 2 ||
                             board[index] == 2 && board[index - 8] == 2 && board[index - 16] == 2;
                 } else {
                     return board[index] == 2 && board[index - 1] == 2 && board[index + 1] == 2 ||

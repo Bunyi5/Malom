@@ -19,80 +19,80 @@
 
         <!-- Outside Circle -->
         <ImageView fx:id="0" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="100.0" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="100.0" layoutY="0.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="0.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="645.0" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" layoutY="0.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="645.0" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="4" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="645.0" layoutY="545.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" layoutY="545.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="5" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="545.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="545.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="6" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="100.0" layoutY="545.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="100.0" layoutY="545.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="7" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="100.0" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="100.0" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
 
         <!-- Middle Circle -->
         <ImageView fx:id="8" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="190.0" layoutY="90.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="190.0" layoutY="90.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="9" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="90.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="90.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="10" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="555.0" layoutY="90.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="555.0" layoutY="90.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="11" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="555.0" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="555.0" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="12" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="555.0" layoutY="455.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="555.0" layoutY="455.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="13" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="455.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="455.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="14" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="190.0" layoutY="455.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="190.0" layoutY="455.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="15" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="190.0" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="190.0" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
 
         <!-- Inside Circle -->
         <ImageView fx:id="16" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="280.0" layoutY="180.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="280.0" layoutY="180.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="17" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="180.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="180.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="18" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="462.5" layoutY="180.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="462.5" layoutY="180.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="19" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="462.5" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="462.5" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="20" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="462.5" layoutY="362.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="462.5" layoutY="362.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="21" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="372.5" layoutY="362.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="362.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="22" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="280.0" layoutY="362.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="280.0" layoutY="362.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="23" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#removePiece" layoutX="280.0" layoutY="272.5" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="280.0" layoutY="272.5" fitHeight="55"
                    fitWidth="55"/>
 
         <!-- Black Pieces -->
