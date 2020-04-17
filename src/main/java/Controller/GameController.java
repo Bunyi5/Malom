@@ -132,6 +132,9 @@ public class GameController {
             view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
+            if (state.nextPlayerCantMove() && !mill) {
+                state.setBlackTurn(!state.isBlackTurn());
+            }
         }
 
     }
@@ -148,6 +151,10 @@ public class GameController {
                 view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
                 mill = false;
+
+                if (state.nextPlayerCantMove()) {
+                    state.setBlackTurn(!state.isBlackTurn());
+                }
 
                 if (state.isGameEnded()) {
                     System.out.println("Ended");

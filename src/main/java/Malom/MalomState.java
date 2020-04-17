@@ -1,5 +1,6 @@
 package Malom;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class MalomState {
 
+    @Getter
     @Setter
     private boolean blackTurn = true;
 
@@ -85,6 +87,38 @@ public class MalomState {
     public boolean canItJump(int index) {
         return !this.isBlack(index) && this.whitePieceNum() == 3 ||
                 this.isBlack(index) && this.blackPieceNum() == 3;
+    }
+
+    public boolean nextPlayerCantMove() {
+        int num = 0;
+        List<Integer> where;
+        if (!this.isPieceStoreEmpty()) {
+            return false;
+        }
+        if (blackTurn) {
+            for (int i = 0; i < 24; i++) {
+                if (board[i] == 1) {
+                    where = this.whereCanThePieceMove(i);
+                    for (int integer : where) {
+                        if (board[integer] == 0) {
+                            num++;
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < 24; i++) {
+                if (board[i] == 2) {
+                    where = this.whereCanThePieceMove(i);
+                    for (int integer : where) {
+                        if (board[integer] == 0) {
+                            num++;
+                        }
+                    }
+                }
+            }
+        }
+        return num == 0;
     }
 
     public List<Integer> whereCanThePieceMove(int index) {
