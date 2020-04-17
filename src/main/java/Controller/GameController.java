@@ -43,6 +43,12 @@ public class GameController {
 
         state = new MalomState();
 
+        drawGame();
+
+    }
+
+    public void drawGame() {
+
         background.setImage(new Image(getClass().getResource("/Pictures/board.png").toExternalForm()));
 
         Image blackImage = new Image(getClass().getResource("/Pictures/black_piece.png").toExternalForm());
@@ -71,20 +77,25 @@ public class GameController {
     public void drag(MouseEvent mouseEvent) {
 
         ImageView view = (ImageView) mouseEvent.getSource();
-        int index = Integer.parseInt(view.getId());
 
-        if (!(view.getOpacity() == 0.0) && !mill && state.whoIsNext(index) && state.isInPieceStore(index)) {
+        if (!(view.getOpacity() == 0.0) && !mill) {
 
-            Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
-            content.putImage(view.getImage());
-            db.setContent(content);
+            int index = Integer.parseInt(view.getId());
 
-            if (state.isPieceStoreEmpty()) {
-                whereToMove = state.whereCanThePieceMove(index);
+            if (state.whoIsNext(index) && state.isInPieceStoreOrEmptyStore(index)) {
+
+                Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
+                ClipboardContent content = new ClipboardContent();
+                content.putImage(view.getImage());
+                db.setContent(content);
+
+                if (state.isPieceStoreEmpty()) {
+                    whereToMove = state.whereCanThePieceMove(index);
+                }
+
+                fromIndex = index;
             }
 
-            fromIndex = index;
         }
 
     }
@@ -106,6 +117,7 @@ public class GameController {
             } else {
                 dragEvent.acceptTransferModes(TransferMode.MOVE);
             }
+
         }
 
     }
@@ -122,7 +134,7 @@ public class GameController {
             dragEvent.setDropCompleted(true);
 
             int index = Integer.parseInt(view.getId());
-            state.swap(fromIndex, index);
+            state.swapPieceValues(fromIndex, index);
             System.out.println(state.toString());
 
             if (state.canItRemovePiece()) {
@@ -141,6 +153,7 @@ public class GameController {
             }
 
             if (mill) {
+
                 if (state.isBlack(index)) {
                     player2Name.setText("");
                     player1Name.setText(player1 + " remove a piece");
@@ -148,7 +161,9 @@ public class GameController {
                     player1Name.setText("");
                     player2Name.setText(player2 + " remove a piece");
                 }
+
             }
+
         }
 
     }
@@ -162,7 +177,9 @@ public class GameController {
             view.setOpacity(0.0);
 
             if (state.nextPlayerCantMove() && !mill) {
+
                 state.setBlackTurn(!state.isBlackTurn());
+
                 if (state.isBlack(Integer.parseInt(view.getId()))) {
                     player2Name.setText("");
                     player1Name.setText(player1 + " turn again");
@@ -170,7 +187,9 @@ public class GameController {
                     player1Name.setText("");
                     player2Name.setText(player2 + " turn again");
                 }
+
             }
+
         }
 
     }
@@ -178,16 +197,18 @@ public class GameController {
     public void pieceClick(MouseEvent mouseEvent) {
 
         if (mill) {
+
             ImageView view = (ImageView) mouseEvent.getSource();
             int index = Integer.parseInt(view.getId());
 
             if (state.whoIsNext(index) && !state.doesBlackHaveMill(index) && !state.doesWhiteHaveMill(index)) {
+
                 boolean isBlack = state.isBlack(index);
+
                 state.removePiece(Integer.parseInt(view.getId()));
-                System.out.println(state.toString());
+
                 view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
-                mill = false;
 
                 if (state.nextPlayerCantMove()) {
                     state.setBlackTurn(!state.isBlackTurn());
@@ -211,6 +232,8 @@ public class GameController {
                 if (state.isGameEnded()) {
                     System.out.println("Ended");
                 }
+
+                mill = false;
             }
 
         }

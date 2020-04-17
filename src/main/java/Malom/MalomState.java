@@ -21,26 +21,6 @@ public class MalomState {
             2, 2, 2, 2, 2, 2, 2, 2, 2 //White
     };
 
-    public void swap(int a, int b) {
-        int temp = board[a];
-        board[a] = board[b];
-        board[b] = temp;
-    }
-
-    public boolean isPieceStoreEmpty() {
-        return Arrays.stream(board, 24, 42).sum() == 0;
-    }
-
-    public boolean isInPieceStore(int index) {
-        return index > 23 || this.isPieceStoreEmpty();
-    }
-
-    public boolean whoIsNext(int index) {
-        if (board[index] == 1 && blackTurn) {
-            return true;
-        } else return board[index] == 2 && !blackTurn;
-    }
-
     public boolean isBlack(int index) {
         return board[index] == 1;
     }
@@ -57,8 +37,24 @@ public class MalomState {
         return (int) Arrays.stream(board, 0, 24).filter(num -> num == 2).count();
     }
 
-    public void removePiece(int index) {
-        board[index] = 0;
+    public boolean isPieceStoreEmpty() {
+        return Arrays.stream(board, 24, 42).sum() == 0;
+    }
+
+    public boolean isInPieceStoreOrEmptyStore(int index) {
+        return index > 23 || this.isPieceStoreEmpty();
+    }
+
+    public boolean whoIsNext(int index) {
+        if (board[index] == 1 && blackTurn) {
+            return true;
+        } else return board[index] == 2 && !blackTurn;
+    }
+
+    public void swapPieceValues(int a, int b) {
+        int temp = board[a];
+        board[a] = board[b];
+        board[b] = temp;
     }
 
     public boolean canItRemovePiece() {
@@ -79,13 +75,12 @@ public class MalomState {
         return num != 0;
     }
 
-    public boolean isGameEnded() {
-        return blackPieceNum() < 3 && this.isPieceStoreEmpty() ||
-                whitePieceNum() < 3 && this.isPieceStoreEmpty();
+    public void removePiece(int index) {
+        board[index] = 0;
     }
 
     public boolean canItJump(int index) {
-        return !this.isBlack(index) && this.whitePieceNum() == 3 ||
+        return this.isWhite(index) && this.whitePieceNum() == 3 ||
                 this.isBlack(index) && this.blackPieceNum() == 3;
     }
 
@@ -249,6 +244,11 @@ public class MalomState {
 
     }
 
+    public boolean isGameEnded() {
+        return blackPieceNum() < 3 && this.isPieceStoreEmpty() ||
+                whitePieceNum() < 3 && this.isPieceStoreEmpty();
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < board.length; i++) {
@@ -270,7 +270,7 @@ public class MalomState {
 
     public static void main(String[] args) {
         MalomState state = new MalomState();
-        state.swap(6, 26);
+        state.swapPieceValues(6, 26);
         System.out.println(state.toString());
     }
 }
