@@ -24,15 +24,19 @@ public class LaunchController {
     @FXML
     private Label errorLabel1;
 
+    @FXML
+    private Label errorLabel2;
+
     public void startAction(ActionEvent actionEvent) throws IOException {
 
         if (player1TextField.getText().isEmpty()) {
-            errorLabel1.setText("Player1 is empty!");
+            errorLabel1.setText("Player1 name is empty!");
         } else if (player2TextField.getText().isEmpty()) {
-            errorLabel1.setText("Player2 is empty!");
+            errorLabel2.setText("Player2 name is empty!");
         } else {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/game.fxml"));
             Parent root = fxmlLoader.load();
+            fxmlLoader.<GameController>getController().initializeData(player1TextField.getText(), player2TextField.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setX((Screen.getPrimary().getBounds().getWidth()/2)-400);

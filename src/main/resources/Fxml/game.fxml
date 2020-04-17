@@ -4,28 +4,43 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controller.GameController"
             prefHeight="700.0" prefWidth="800.0"
-            style="-fx-background-color: FFFFCC;">
+            style="-fx-background-color: FFFFCC">
 
     <!-- Background -->
     <ImageView fx:id="background" layoutX="100.0" fitHeight="600" fitWidth="600"/>
+
+    <!-- Labels -->
+    <Label fx:id="player1Name" layoutX="50.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#000000"
+           alignment="CENTER">
+           <font>
+               <Font name="Tahoma" size="35.0"/>
+           </font>
+    </Label>
+    <Label fx:id="player2Name" layoutX="400.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#cbd4d1"
+           alignment="CENTER">
+        <font>
+            <Font name="Tahoma" size="35.0"/>
+        </font>
+    </Label>
 
     <!-- Board -->
     <Pane fx:id="board" prefHeight="600.0" prefWidth="800.0">
 
         <!-- Outside Circle -->
         <ImageView fx:id="0" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="100.0" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="100.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="1" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="372.5" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="2" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
-                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" layoutY="0.0" fitHeight="55"
+                   onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="3" onDragDetected="#drag" onDragOver="#dragOver" onDragDropped="#drop"
                    onDragDone="#dragDone" onMouseClicked="#pieceClick" layoutX="645.0" layoutY="272.5" fitHeight="55"
@@ -96,7 +111,7 @@
                    fitWidth="55"/>
 
         <!-- Black Pieces -->
-        <ImageView fx:id="24" onDragDetected="#drag" onDragDone="#dragDone" layoutY="0.0" fitHeight="55"
+        <ImageView fx:id="24" onDragDetected="#drag" onDragDone="#dragDone" fitHeight="55"
                    fitWidth="55"/>
         <ImageView fx:id="25" onDragDetected="#drag" onDragDone="#dragDone" layoutY="55.0" fitHeight="55"
                    fitWidth="55"/>
@@ -116,7 +131,7 @@
                    fitWidth="55"/>
 
         <!-- White Pieces -->
-        <ImageView fx:id="33" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="0.0"
+        <ImageView fx:id="33" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0"
                    fitHeight="55" fitWidth="55"/>
         <ImageView fx:id="34" onDragDetected="#drag" onDragDone="#dragDone" layoutX="745.0" layoutY="55.0"
                    fitHeight="55" fitWidth="55"/>

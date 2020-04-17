@@ -2,6 +2,7 @@ package Controller;
 
 import Malom.MalomState;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -13,6 +14,8 @@ import java.util.List;
 public class GameController {
 
     private MalomState state;
+    private String player1;
+    private String player2;
     private int fromIndex;
     private boolean mill = false;
     private List<Integer> whereToMove = new ArrayList<>();
@@ -22,6 +25,18 @@ public class GameController {
 
     @FXML
     private Pane board;
+
+    @FXML
+    private Label player1Name;
+
+    @FXML
+    private Label player2Name;
+
+    public void initializeData(String player1, String player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        player1Name.setText(this.player1 + " turn");
+    }
 
     @FXML
     public void initialize() {
@@ -117,8 +132,22 @@ public class GameController {
 
             if (state.isBlack(index)) {
                 state.setBlackTurn(false);
+                player1Name.setText("");
+                player2Name.setText(player2 + " turn");
             } else {
                 state.setBlackTurn(true);
+                player2Name.setText("");
+                player1Name.setText(player1 + " turn");
+            }
+
+            if (mill) {
+                if (state.isBlack(index)) {
+                    player2Name.setText("");
+                    player1Name.setText(player1 + " remove a piece");
+                } else {
+                    player1Name.setText("");
+                    player2Name.setText(player2 + " remove a piece");
+                }
             }
         }
 
@@ -134,6 +163,13 @@ public class GameController {
 
             if (state.nextPlayerCantMove() && !mill) {
                 state.setBlackTurn(!state.isBlackTurn());
+                if (state.isBlack(Integer.parseInt(view.getId()))) {
+                    player2Name.setText("");
+                    player1Name.setText(player1 + " turn again");
+                } else {
+                    player1Name.setText("");
+                    player2Name.setText(player2 + " turn again");
+                }
             }
         }
 
@@ -146,6 +182,7 @@ public class GameController {
             int index = Integer.parseInt(view.getId());
 
             if (state.whoIsNext(index) && !state.doesBlackHaveMill(index) && !state.doesWhiteHaveMill(index)) {
+                boolean isBlack = state.isBlack(index);
                 state.removePiece(Integer.parseInt(view.getId()));
                 System.out.println(state.toString());
                 view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
@@ -154,6 +191,21 @@ public class GameController {
 
                 if (state.nextPlayerCantMove()) {
                     state.setBlackTurn(!state.isBlackTurn());
+                    if (isBlack) {
+                        player1Name.setText("");
+                        player2Name.setText(player2 + " turn again");
+                    } else {
+                        player2Name.setText("");
+                        player1Name.setText(player1 + " turn again");
+                    }
+                } else {
+                    if (isBlack) {
+                        player2Name.setText("");
+                        player1Name.setText(player1 + " turn");
+                    } else {
+                        player1Name.setText("");
+                        player2Name.setText(player2 + " turn");
+                    }
                 }
 
                 if (state.isGameEnded()) {
