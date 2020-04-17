@@ -104,7 +104,7 @@ public class GameController {
 
         ImageView view = (ImageView) dragEvent.getSource();
 
-        if (dragEvent.getGestureSource() != view && dragEvent.getDragboard().hasImage() && view.getOpacity() == 0.0) {
+        if (view.getOpacity() == 0.0 && dragEvent.getDragboard().hasImage()) {
 
             if (state.isPieceStoreEmpty()) {
 
@@ -135,7 +135,6 @@ public class GameController {
 
             int index = Integer.parseInt(view.getId());
             state.swapPieceValues(fromIndex, index);
-            System.out.println(state.toString());
 
             if (state.canItRemovePiece()) {
                 mill = state.doesBlackHaveMill(Integer.parseInt(view.getId())) ||
