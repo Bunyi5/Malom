@@ -82,7 +82,7 @@ public class GameController {
 
             int index = Integer.parseInt(view.getId());
 
-            if (state.whoIsNext(index) && state.isInPieceStoreOrEmptyStore(index)) {
+            if (state.isThisColorNext(index) && state.isInPieceStoreOrEmptyStore(index)) {
 
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -136,12 +136,7 @@ public class GameController {
             int index = Integer.parseInt(view.getId());
             state.swapPieceValues(fromIndex, index);
 
-            if (state.canItRemovePiece()) {
-                mill = state.doesBlackHaveMill(Integer.parseInt(view.getId())) ||
-                        state.doesWhiteHaveMill(Integer.parseInt(view.getId()));
-            }
-
-            if (state.isBlack(index)) {
+            if (state.isBlackTurn()) {
                 state.setBlackTurn(false);
                 player1Name.setText("");
                 player2Name.setText(player2 + " turn");
@@ -151,16 +146,24 @@ public class GameController {
                 player1Name.setText(player1 + " turn");
             }
 
-            if (mill) {
+            if (state.canItRemovePiece()) {
 
-                if (state.isBlack(index)) {
-                    player2Name.setText("");
-                    player1Name.setText(player1 + " remove a piece");
-                } else {
-                    player1Name.setText("");
-                    player2Name.setText(player2 + " remove a piece");
+                if (mill = state.isSomeoneHasMill(index)) {
+
+                    if (!state.isBlackTurn()) {
+                        player2Name.setText("");
+                        player1Name.setText(player1 + " remove a piece");
+                    } else {
+                        player1Name.setText("");
+                        player2Name.setText(player2 + " remove a piece");
+                    }
+
                 }
 
+            }
+
+            if (state.isGameEnded(index)) {
+                System.out.println("Ended");
             }
 
         }
@@ -179,7 +182,7 @@ public class GameController {
 
                 state.setBlackTurn(!state.isBlackTurn());
 
-                if (state.isBlack(Integer.parseInt(view.getId()))) {
+                if (state.isBlackTurn()) {
                     player2Name.setText("");
                     player1Name.setText(player1 + " turn again");
                 } else {
@@ -200,9 +203,7 @@ public class GameController {
             ImageView view = (ImageView) mouseEvent.getSource();
             int index = Integer.parseInt(view.getId());
 
-            if (state.whoIsNext(index) && !state.doesBlackHaveMill(index) && !state.doesWhiteHaveMill(index)) {
-
-                boolean isBlack = state.isBlack(index);
+            if (state.isThisColorNext(index) && !state.isSomeoneHasMill(index)) {
 
                 state.removePiece(Integer.parseInt(view.getId()));
 
@@ -211,7 +212,7 @@ public class GameController {
 
                 if (state.nextPlayerCantMove()) {
                     state.setBlackTurn(!state.isBlackTurn());
-                    if (isBlack) {
+                    if (!state.isBlackTurn()) {
                         player1Name.setText("");
                         player2Name.setText(player2 + " turn again");
                     } else {
@@ -219,17 +220,13 @@ public class GameController {
                         player1Name.setText(player1 + " turn again");
                     }
                 } else {
-                    if (isBlack) {
+                    if (state.isBlackTurn()) {
                         player2Name.setText("");
                         player1Name.setText(player1 + " turn");
                     } else {
                         player1Name.setText("");
                         player2Name.setText(player2 + " turn");
                     }
-                }
-
-                if (state.isGameEnded()) {
-                    System.out.println("Ended");
                 }
 
                 mill = false;
