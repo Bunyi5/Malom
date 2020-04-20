@@ -1,13 +1,21 @@
 package Controller;
 
 import Malom.MalomState;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +25,7 @@ public class GameController {
     private String player1;
     private String player2;
     private int fromIndex;
+    private boolean gameGoes = true;
     private boolean mill = false;
     private List<Integer> whereCanMove = new ArrayList<>();
 
@@ -32,6 +41,9 @@ public class GameController {
     @FXML
     private Label player2Name;
 
+    @FXML
+    private Button exitButton;
+
     public void initializeData(String player1, String player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -42,6 +54,8 @@ public class GameController {
     public void initialize() {
 
         state = new MalomState();
+
+        exitButton.setDisable(true);
 
         drawGame();
 
@@ -82,7 +96,7 @@ public class GameController {
 
             int index = Integer.parseInt(view.getId());
 
-            if (state.isThisColorNext(index) && state.isInPieceStoreOrEmptyStore(index)) {
+            if (state.isThisColorNext(index) && state.isInPieceStoreOrEmptyStore(index) && gameGoes) {
 
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -163,7 +177,16 @@ public class GameController {
             }
 
             if (state.isGameEnded(index)) {
-                System.out.println("Ended");
+                gameGoes = false;
+                exitButton.setDisable(false);
+
+                if (state.isBlackTurn()) {
+                    player1Name.setText("");
+                    player2Name.setText(player2 + " win");
+                } else {
+                    player2Name.setText("");
+                    player1Name.setText(player1 + " win");
+                }
             }
 
         }
@@ -234,6 +257,13 @@ public class GameController {
 
         }
 
+    }
+
+    public void finishGame(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/toplist.fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }

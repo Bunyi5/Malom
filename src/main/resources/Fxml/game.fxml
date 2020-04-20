@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -14,6 +15,9 @@
 
     <!-- Background -->
     <ImageView fx:id="background" layoutX="100.0" fitHeight="600" fitWidth="600"/>
+
+    <!-- Button -->
+    <Button fx:id="exitButton" layoutX="710.0" layoutY="640.0" onAction="#finishGame" prefHeight="50.0" prefWidth="80.0" text="Exit"/>
 
     <!-- Labels -->
     <Label fx:id="player1Name" layoutX="50.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#000000"
