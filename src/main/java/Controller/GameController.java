@@ -18,7 +18,7 @@ public class GameController {
     private String player2;
     private int fromIndex;
     private boolean mill = false;
-    private List<Integer> whereToMove = new ArrayList<>();
+    private List<Integer> whereCanMove = new ArrayList<>();
 
     @FXML
     private ImageView background;
@@ -90,7 +90,7 @@ public class GameController {
                 db.setContent(content);
 
                 if (state.isPieceStoreEmpty()) {
-                    whereToMove = state.whereCanThePieceMove(index);
+                    whereCanMove = state.whereCanThePieceMove(index);
                 }
 
                 fromIndex = index;
@@ -110,7 +110,7 @@ public class GameController {
 
                 int index = Integer.parseInt(view.getId());
 
-                if (whereToMove.contains(index) || state.canItJump(fromIndex)) {
+                if (whereCanMove.contains(index) || state.canItJump(fromIndex)) {
                     dragEvent.acceptTransferModes(TransferMode.MOVE);
                 }
 
@@ -178,7 +178,7 @@ public class GameController {
             view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
-            if (state.nextPlayerCantMove() && !mill) {
+            if (state.isTheNextPlayerCantMove() && !mill) {
 
                 state.setBlackTurn(!state.isBlackTurn());
 
@@ -210,7 +210,7 @@ public class GameController {
                 view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
 
-                if (state.nextPlayerCantMove()) {
+                if (state.isTheNextPlayerCantMove()) {
                     state.setBlackTurn(!state.isBlackTurn());
                     if (!state.isBlackTurn()) {
                         player1Name.setText("");
