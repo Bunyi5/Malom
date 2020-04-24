@@ -1,4 +1,4 @@
-package Controller;
+package controller;
 
 
 import javafx.event.ActionEvent;
@@ -34,7 +34,7 @@ public class LaunchController {
         } else if (player2TextField.getText().isEmpty()) {
             errorLabel2.setText("Player2 name is empty!");
         } else {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/game.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/game.fxml"));
             Parent root = fxmlLoader.load();
             fxmlLoader.<GameController>getController().initializeData(player1TextField.getText(), player2TextField.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

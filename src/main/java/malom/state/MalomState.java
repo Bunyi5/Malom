@@ -1,4 +1,4 @@
-package Malom;
+package malom.state;
 
 import lombok.Getter;
 import lombok.Setter;

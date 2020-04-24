@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import Malom.MalomState;
+import malom.state.MalomState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,11 +63,11 @@ public class GameController {
 
     public void drawGame() {
 
-        background.setImage(new Image(getClass().getResource("/Pictures/board.png").toExternalForm()));
+        background.setImage(new Image(getClass().getResource("/pictures/board.png").toExternalForm()));
 
-        Image blackImage = new Image(getClass().getResource("/Pictures/black_piece.png").toExternalForm());
-        Image whiteImage = new Image(getClass().getResource("/Pictures/white_piece.png").toExternalForm());
-        Image transparent = new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm());
+        Image blackImage = new Image(getClass().getResource("/pictures/black_piece.png").toExternalForm());
+        Image whiteImage = new Image(getClass().getResource("/pictures/white_piece.png").toExternalForm());
+        Image transparent = new Image(getClass().getResource("/pictures/transparent.png").toExternalForm());
 
         ImageView view;
 
@@ -198,7 +198,7 @@ public class GameController {
         if (dragEvent.getTransferMode() == TransferMode.MOVE) {
 
             ImageView view = (ImageView) dragEvent.getSource();
-            view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
+            view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
             if (state.isTheNextPlayerCantMove() && !mill) {
@@ -230,7 +230,7 @@ public class GameController {
 
                 state.removePiece(Integer.parseInt(view.getId()));
 
-                view.setImage(new Image(getClass().getResource("/Pictures/transparent.png").toExternalForm()));
+                view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
 
                 if (state.isTheNextPlayerCantMove()) {
