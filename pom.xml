@@ -7,6 +7,11 @@
     <artifactId>malom</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
+    <scm>
+        <connection>scm:git:git://github.com/Bunyi5/Malom.git</connection>
+        <developerConnection>scm:git:git@github.com/Bunyi5/Malom.git</developerConnection>
+        <url>https://github.com/Bunyi5/Malom</url>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
