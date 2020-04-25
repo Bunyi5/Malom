@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -12,11 +9,11 @@
             fx:controller="controller.TopListController"
             prefHeight="700.0" prefWidth="700.0">
 
-    <TableView fx:id="toplistTable" editable="true" layoutX="25.0" layoutY="74.0" prefHeight="550.0" prefWidth="650.0">
+    <TableView fx:id="topListTable" editable="true" layoutX="25.0" layoutY="74.0" prefHeight="550.0" prefWidth="650.0">
         <columns>
-            <TableColumn fx:id="Player1" prefWidth="125.0" text="Player 1" />
+            <TableColumn fx:id="player1" prefWidth="125.0" text="Player 1" />
             <TableColumn fx:id="leftPiece1" prefWidth="100.0" text="Left Pieces 1" />
-            <TableColumn fx:id="Player2" prefWidth="125.0" text="Player 2" />
+            <TableColumn fx:id="player2" prefWidth="125.0" text="Player 2" />
             <TableColumn fx:id="leftPiece2" prefWidth="100.0" text="Left Pieces 2" />
             <TableColumn fx:id="winner" prefWidth="100.0" text="Winner" />
             <TableColumn fx:id="date" prefWidth="100.0" text="Date" />

@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.stage.Screen;
 import malom.results.GameResult;
 import malom.results.GameResultDao;
 import malom.state.MalomState;
@@ -286,6 +287,8 @@ public class GameController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/toplist.fxml"));
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setX((Screen.getPrimary().getBounds().getWidth()/2)-350);
+        stage.setY(0);
         stage.show();
     }
 
