@@ -25,6 +25,7 @@ public class GameController {
     private String player1;
     private String player2;
     private int fromIndex;
+    private int whereIndex;
     private boolean gameGoes = true;
     private boolean mill = false;
     private List<Integer> whereCanMove = new ArrayList<>();
@@ -147,8 +148,8 @@ public class GameController {
             view.setOpacity(100.0);
             dragEvent.setDropCompleted(true);
 
-            int index = Integer.parseInt(view.getId());
-            state.swapPieceValues(fromIndex, index);
+            whereIndex = Integer.parseInt(view.getId());
+            state.swapPieceValues(fromIndex, whereIndex);
 
             if (state.isBlackTurn()) {
                 state.setBlackTurn(false);
@@ -162,7 +163,7 @@ public class GameController {
 
             if (state.canItRemovePiece()) {
 
-                if (mill = state.isSomeoneHasMill(index)) {
+                if (mill = state.isSomeoneHasMill(whereIndex)) {
 
                     if (!state.isBlackTurn()) {
                         player2Name.setText("");
@@ -176,18 +177,7 @@ public class GameController {
 
             }
 
-            if (state.isGameEnded(index)) {
-                gameGoes = false;
-                exitButton.setDisable(false);
 
-                if (state.isBlackTurn()) {
-                    player1Name.setText("");
-                    player2Name.setText(player2 + " win");
-                } else {
-                    player2Name.setText("");
-                    player1Name.setText(player1 + " win");
-                }
-            }
 
         }
 
@@ -249,6 +239,19 @@ public class GameController {
                     } else {
                         player1Name.setText("");
                         player2Name.setText(player2 + " turn");
+                    }
+                }
+
+                if (state.isGameEnded(whereIndex)) {
+                    gameGoes = false;
+                    exitButton.setDisable(false);
+
+                    if (state.isBlackTurn()) {
+                        player1Name.setText("");
+                        player2Name.setText(player2 + " win");
+                    } else {
+                        player2Name.setText("");
+                        player1Name.setText(player1 + " win");
                     }
                 }
 
