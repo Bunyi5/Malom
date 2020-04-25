@@ -104,9 +104,9 @@ public class GameController {
 
         if (!(view.getOpacity() == 0.0) && !mill) {
 
-            int index = Integer.parseInt(view.getId());
+            fromIndex = Integer.parseInt(view.getId());
 
-            if (state.isThisColorNext(index) && state.isInPieceStoreOrEmptyStore(index) && gameGoes) {
+            if (state.isThisColorNext(fromIndex) && state.isInPieceStoreOrEmptyStore(fromIndex) && gameGoes) {
 
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
@@ -114,10 +114,9 @@ public class GameController {
                 db.setContent(content);
 
                 if (state.isPieceStoreEmpty()) {
-                    whereCanMove = state.whereCanThePieceMove(index);
+                    whereCanMove = state.whereCanThePieceMove(fromIndex);
                 }
 
-                fromIndex = index;
             }
 
         }
@@ -160,54 +159,9 @@ public class GameController {
             int index = Integer.parseInt(view.getId());
             state.swapPieceValues(fromIndex, index);
 
-            if (state.isBlackTurn()) {
-                state.setBlackTurn(false);
-                player1Label.setText("");
-                player2Label.setText(player2Name + " turn");
-                log.info(player1Name + " moved piece from " + fromIndex + " to " + index + ", " + player2Name + " is next.");
-            } else {
-                state.setBlackTurn(true);
-                player2Label.setText("");
-                player1Label.setText(player1Name + " turn");
-                log.info(player2Name + " moved piece from " + fromIndex + " to " + index + ", " + player1Name + " is next.");
-            }
-
-            if (state.canItRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
-
-                    if (state.isBlackTurn()) {
-                        player1Label.setText("");
-                        player2Label.setText(player2Name + " remove a piece");
-                        log.info(player2Name + " has a mill and can remove a piece.");
-                    } else {
-                        player2Label.setText("");
-                        player1Label.setText(player1Name + " remove a piece");
-                        log.info(player1Name + " has a mill and can remove a piece.");
-                    }
-
-            } else if(state.isSomeoneHasMill(index)) {
-                if (state.isBlackTurn()) {
-                    log.info(player2Name + " has a mill, but can't remove piece, " + player1Name + " is next.");
-                } else {
-                    log.info(player1Name + " has a mill, but can't remove piece, " + player2Name + " is next.");
-                }
-            }
-
-            if (state.isGameEnded(index)) {
-                gameGoes = false;
-                exitButton.setDisable(false);
-
-                if (state.isBlackTurn()) {
-                    player1Label.setText("");
-                    player2Label.setText(player2Name + " win");
-                    winner = player2Name;
-                    log.info(player2Name + " wins the game.");
-                } else {
-                    player2Label.setText("");
-                    player1Label.setText(player1Name + " win");
-                    winner = player1Name;
-                    log.info(player1Name + " wins the game.");
-                }
-            }
+            changeTurn(index);
+            millCheck(index);
+            gameEndCheck(index);
 
         }
 
@@ -221,21 +175,7 @@ public class GameController {
             view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
             view.setOpacity(0.0);
 
-            if (state.isTheNextPlayerCantMove() && !mill) {
-
-                state.setBlackTurn(!state.isBlackTurn());
-
-                if (state.isBlackTurn()) {
-                    player2Label.setText("");
-                    player1Label.setText(player1Name + " turn again");
-                    log.info(player2Name + " can't move, " + player1Name + " goes again.");
-                } else {
-                    player1Label.setText("");
-                    player2Label.setText(player2Name + " turn again");
-                    log.info(player1Name + " can't move, " + player2Name + " goes again.");
-                }
-
-            }
+            nextPlayerCantMoveCheck();
 
         }
 
@@ -255,34 +195,125 @@ public class GameController {
                 view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
 
-                if (state.isTheNextPlayerCantMove()) {
-                    state.setBlackTurn(!state.isBlackTurn());
-                    if (state.isBlackTurn()) {
-                        player2Label.setText("");
-                        player1Label.setText(player1Name + " turn again");
-                        log.info(player2Name + " removed piece from " + index);
-                        log.info(player2Name + " can't move, " + player1Name + " goes again.");
-                    } else {
-                        player1Label.setText("");
-                        player2Label.setText(player2Name + " turn again");
-                        log.info(player1Name + " removed piece from " + index);
-                        log.info(player1Name + " can't move, " + player2Name + " goes again.");
-                    }
-                } else {
-                    if (state.isBlackTurn()) {
-                        player2Label.setText("");
-                        player1Label.setText(player1Name + " turn");
-                        log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
-                    } else {
-                        player1Label.setText("");
-                        player2Label.setText(player2Name + " turn");
-                        log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
-                    }
-                }
+                afterRemoveCheckNextPlayerCantMove(index);
 
                 mill = false;
             }
 
+        }
+
+    }
+
+    private void changeTurn(int index) {
+
+        if (state.isBlackTurn()) {
+            state.setBlackTurn(false);
+            player1Label.setText("");
+            player2Label.setText(player2Name + " turn");
+            log.info(player1Name + " moved piece from " + fromIndex + " to " + index + ", " + player2Name + " is next.");
+        } else {
+            state.setBlackTurn(true);
+            player2Label.setText("");
+            player1Label.setText(player1Name + " turn");
+            log.info(player2Name + " moved piece from " + fromIndex + " to " + index + ", " + player1Name + " is next.");
+        }
+
+    }
+
+    private void millCheck(int index) {
+
+        if (state.canItRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
+
+            if (state.isBlackTurn()) {
+                player1Label.setText("");
+                player2Label.setText(player2Name + " remove a piece");
+                log.info(player2Name + " has a mill and can remove a piece.");
+            } else {
+                player2Label.setText("");
+                player1Label.setText(player1Name + " remove a piece");
+                log.info(player1Name + " has a mill and can remove a piece.");
+            }
+
+        } else if(state.isSomeoneHasMill(index)) {
+
+            if (state.isBlackTurn()) {
+                player2Label.setText(player2Name + " can't remove");
+                log.info(player2Name + " has a mill, but can't remove piece, " + player1Name + " is next.");
+            } else {
+                player1Label.setText(player1Name + " can't remove");
+                log.info(player1Name + " has a mill, but can't remove piece, " + player2Name + " is next.");
+            }
+
+        }
+
+    }
+
+    private void gameEndCheck(int index) {
+
+        if (state.isGameEnded(index)) {
+            gameGoes = false;
+            exitButton.setDisable(false);
+
+            if (state.isBlackTurn()) {
+                player1Label.setText("");
+                player2Label.setText(player2Name + " win");
+                winner = player2Name;
+                log.info(player2Name + " wins the game.");
+            } else {
+                player2Label.setText("");
+                player1Label.setText(player1Name + " win");
+                winner = player1Name;
+                log.info(player1Name + " wins the game.");
+            }
+        }
+
+    }
+
+    private void nextPlayerCantMoveCheck() {
+
+        if (state.isTheNextPlayerCantMove() && !mill) {
+
+            state.setBlackTurn(!state.isBlackTurn());
+
+            if (state.isBlackTurn()) {
+                player2Label.setText("");
+                player1Label.setText(player1Name + " turn again");
+                log.info(player2Name + " can't move, " + player1Name + " goes again.");
+            } else {
+                player1Label.setText("");
+                player2Label.setText(player2Name + " turn again");
+                log.info(player1Name + " can't move, " + player2Name + " goes again.");
+            }
+
+        }
+
+    }
+
+    private void afterRemoveCheckNextPlayerCantMove(int index) {
+
+        if (state.isTheNextPlayerCantMove()) {
+            state.setBlackTurn(!state.isBlackTurn());
+            if (state.isBlackTurn()) {
+                player2Label.setText("");
+                player1Label.setText(player1Name + " turn again");
+                log.info(player2Name + " removed piece from " + index + ".");
+                log.info(player2Name + " can't move, " + player1Name + " goes again.");
+            } else {
+                player1Label.setText("");
+                player2Label.setText(player2Name + " turn again");
+                log.info(player1Name + " removed piece from " + index + ".");
+                log.info(player1Name + " can't move, " + player2Name + " goes again.");
+            }
+        } else {
+            if (state.isBlackTurn()) {
+                player2Label.setText("");
+                player1Label.setText(player1Name + " turn");
+                log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
+            } else {
+                player1Label.setText("");
+                player2Label.setText(player2Name + " turn");
+                log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
+            }
         }
 
     }
