@@ -20,13 +20,13 @@
     <Button fx:id="exitButton" layoutX="710.0" layoutY="640.0" onAction="#finishGame" prefHeight="50.0" prefWidth="80.0" text="Exit"/>
 
     <!-- Labels -->
-    <Label fx:id="player1Name" layoutX="50.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#000000"
+    <Label fx:id="player1Label" layoutX="50.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#000000"
            alignment="CENTER">
            <font>
                <Font name="Tahoma" size="35.0"/>
            </font>
     </Label>
-    <Label fx:id="player2Name" layoutX="400.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#cbd4d1"
+    <Label fx:id="player2Label" layoutX="400.0" layoutY="600.0" prefHeight="50.0" prefWidth="350.0" textFill="#cbd4d1"
            alignment="CENTER">
         <font>
             <Font name="Tahoma" size="35.0"/>

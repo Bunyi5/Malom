@@ -29,11 +29,11 @@ public class MalomState {
         return board[index] == 2;
     }
 
-    private int blackPieceNum() {
+    public int blackPieceNum() {
         return (int) Arrays.stream(board, 0, 24).filter(value -> value == 1).count();
     }
 
-    private int whitePieceNum() {
+    public int whitePieceNum() {
         return (int) Arrays.stream(board, 0, 24).filter(value -> value == 2).count();
     }
 
@@ -255,11 +255,11 @@ public class MalomState {
     }
 
     private boolean isBlackWin(int index) {
-        return this.isPieceStoreEmpty() && this.whitePieceNum() == 2 && this.isPieceInMill(index, 1);
+        return this.isPieceStoreEmpty() && this.whitePieceNum() == 3 && this.isPieceInMill(index, 1);
     }
 
     private boolean isWhiteWin(int index) {
-        return this.isPieceStoreEmpty() && this.blackPieceNum() == 2 && this.isPieceInMill(index, 2);
+        return this.isPieceStoreEmpty() && this.blackPieceNum() == 3 && this.isPieceInMill(index, 2);
     }
 
     public boolean isGameEnded(int index) {
