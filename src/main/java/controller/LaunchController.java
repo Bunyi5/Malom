@@ -11,8 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 
+@Slf4j
 public class LaunchController {
 
     @FXML
@@ -42,6 +45,8 @@ public class LaunchController {
             stage.setX((Screen.getPrimary().getBounds().getWidth()/2)-400);
             stage.setY(0);
             stage.show();
+            log.info("Player1 is set to {}, Player2 is set to {}, loading game scene.",
+                    player1TextField.getText(), player2TextField.getText());
         }
     }
 

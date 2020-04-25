@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 import malom.results.GameResult;
 import malom.results.GameResultDao;
 
@@ -22,6 +23,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 public class TopListController {
 
     @FXML
@@ -55,6 +57,7 @@ public class TopListController {
         stage.setX((Screen.getPrimary().getBounds().getWidth()/2)-300);
         stage.setY((Screen.getPrimary().getBounds().getHeight()/2)-250);
         stage.show();
+        log.info("Loading launch scene.");
     }
 
     @FXML

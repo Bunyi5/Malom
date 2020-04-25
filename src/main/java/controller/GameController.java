@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.stage.Screen;
+import lombok.extern.slf4j.Slf4j;
 import malom.results.GameResult;
 import malom.results.GameResultDao;
 import malom.state.MalomState;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class GameController {
 
     private MalomState state;
@@ -162,26 +164,32 @@ public class GameController {
                 state.setBlackTurn(false);
                 player1Label.setText("");
                 player2Label.setText(player2Name + " turn");
+                log.info(player1Name + " moved piece from " + fromIndex + " to " + index + ", " + player2Name + " is next.");
             } else {
                 state.setBlackTurn(true);
                 player2Label.setText("");
                 player1Label.setText(player1Name + " turn");
+                log.info(player2Name + " moved piece from " + fromIndex + " to " + index + ", " + player1Name + " is next.");
             }
 
-            if (state.canItRemovePiece()) {
+            if (state.canItRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
 
-                if (mill = state.isSomeoneHasMill(index)) {
-
-                    if (!state.isBlackTurn()) {
-                        player2Label.setText("");
-                        player1Label.setText(player1Name + " remove a piece");
-                    } else {
+                    if (state.isBlackTurn()) {
                         player1Label.setText("");
                         player2Label.setText(player2Name + " remove a piece");
+                        log.info(player2Name + " has a mill and can remove a piece.");
+                    } else {
+                        player2Label.setText("");
+                        player1Label.setText(player1Name + " remove a piece");
+                        log.info(player1Name + " has a mill and can remove a piece.");
                     }
 
+            } else if(state.isSomeoneHasMill(index)) {
+                if (state.isBlackTurn()) {
+                    log.info(player2Name + " has a mill, but can't remove piece, " + player1Name + " is next.");
+                } else {
+                    log.info(player1Name + " has a mill, but can't remove piece, " + player2Name + " is next.");
                 }
-
             }
 
             if (state.isGameEnded(index)) {
@@ -192,10 +200,12 @@ public class GameController {
                     player1Label.setText("");
                     player2Label.setText(player2Name + " win");
                     winner = player2Name;
+                    log.info(player2Name + " wins the game.");
                 } else {
                     player2Label.setText("");
                     player1Label.setText(player1Name + " win");
                     winner = player1Name;
+                    log.info(player1Name + " wins the game.");
                 }
             }
 
@@ -218,9 +228,11 @@ public class GameController {
                 if (state.isBlackTurn()) {
                     player2Label.setText("");
                     player1Label.setText(player1Name + " turn again");
+                    log.info(player2Name + " can't move, " + player1Name + " goes again.");
                 } else {
                     player1Label.setText("");
                     player2Label.setText(player2Name + " turn again");
+                    log.info(player1Name + " can't move, " + player2Name + " goes again.");
                 }
 
             }
@@ -238,27 +250,33 @@ public class GameController {
 
             if (state.isThisColorNext(index) && !state.isSomeoneHasMill(index)) {
 
-                state.removePiece(Integer.parseInt(view.getId()));
+                state.removePiece(index);
 
                 view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
                 view.setOpacity(0.0);
 
                 if (state.isTheNextPlayerCantMove()) {
                     state.setBlackTurn(!state.isBlackTurn());
-                    if (!state.isBlackTurn()) {
-                        player1Label.setText("");
-                        player2Label.setText(player2Name + " turn again");
-                    } else {
+                    if (state.isBlackTurn()) {
                         player2Label.setText("");
                         player1Label.setText(player1Name + " turn again");
+                        log.info(player2Name + " removed piece from " + index);
+                        log.info(player2Name + " can't move, " + player1Name + " goes again.");
+                    } else {
+                        player1Label.setText("");
+                        player2Label.setText(player2Name + " turn again");
+                        log.info(player1Name + " removed piece from " + index);
+                        log.info(player1Name + " can't move, " + player2Name + " goes again.");
                     }
                 } else {
                     if (state.isBlackTurn()) {
                         player2Label.setText("");
                         player1Label.setText(player1Name + " turn");
+                        log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
                     } else {
                         player1Label.setText("");
                         player2Label.setText(player2Name + " turn");
+                        log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
                     }
                 }
 
@@ -271,6 +289,7 @@ public class GameController {
 
     private GameResult getResult() {
 
+        log.info("Creating game result.");
         return GameResult.builder()
                 .player1(player1Name)
                 .leftPiece1(state.blackPieceNum())
@@ -278,7 +297,6 @@ public class GameController {
                 .leftPiece2(state.whitePieceNum())
                 .winner(winner)
                 .build();
-
     }
 
     public void finishGame(ActionEvent actionEvent) throws IOException {
@@ -290,6 +308,7 @@ public class GameController {
         stage.setX((Screen.getPrimary().getBounds().getWidth()/2)-350);
         stage.setY(0);
         stage.show();
+        log.info("Finished game, loading Top List scene.");
     }
 
 }
