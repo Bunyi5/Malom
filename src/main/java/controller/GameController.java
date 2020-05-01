@@ -36,6 +36,7 @@ public class GameController {
     private int fromIndex;
     private boolean gameGoes = true;
     private boolean mill = false;
+    private Image transparent;
     private List<Integer> whereCanMove = new ArrayList<>();
 
     private GameResultDao gameResultDao;
@@ -68,31 +69,15 @@ public class GameController {
     }
 
     /**
-     * Initializes the game fxml file.
-     */
-    @FXML
-    public void initialize() {
-
-        gameResultDao = GameResultDao.getInstance();
-
-        state = new MalomState();
-
-        exitButton.setDisable(true);
-
-        drawGame();
-
-    }
-
-    /**
      * Draws the game board.
      */
-    public void drawGame() {
+    private void drawGame() {
 
         background.setImage(new Image(getClass().getResource("/pictures/board.png").toExternalForm()));
 
         Image blackImage = new Image(getClass().getResource("/pictures/black_piece.png").toExternalForm());
         Image whiteImage = new Image(getClass().getResource("/pictures/white_piece.png").toExternalForm());
-        Image transparent = new Image(getClass().getResource("/pictures/transparent.png").toExternalForm());
+        transparent = new Image(getClass().getResource("/pictures/transparent.png").toExternalForm());
 
         ImageView view;
 
@@ -110,6 +95,22 @@ public class GameController {
             }
 
         }
+
+    }
+
+    /**
+     * Initializes the game fxml file.
+     */
+    @FXML
+    public void initialize() {
+
+        gameResultDao = GameResultDao.getInstance();
+
+        state = new MalomState();
+
+        exitButton.setDisable(true);
+
+        drawGame();
 
     }
 
@@ -213,7 +214,7 @@ public class GameController {
         if (dragEvent.getTransferMode() == TransferMode.MOVE) {
 
             ImageView view = (ImageView) dragEvent.getSource();
-            view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
+            view.setImage(transparent);
             view.setOpacity(0.0);
 
             nextPlayerCantMoveCheck();
@@ -238,10 +239,10 @@ public class GameController {
 
                 state.removePiece(index);
 
-                view.setImage(new Image(getClass().getResource("/pictures/transparent.png").toExternalForm()));
+                view.setImage(transparent);
                 view.setOpacity(0.0);
 
-                afterRemoveCheckNextPlayerCantMove(index);
+                afterRemoveCheckCanTheNextPlayerMove(index);
 
                 mill = false;
             }
@@ -335,9 +336,19 @@ public class GameController {
 
     }
 
-    private void afterRemoveCheckNextPlayerCantMove(int index) {
+    private void afterRemoveCheckCanTheNextPlayerMove(int index) {
 
-        if (!state.canTheNextPlayerMove()) {
+        if (state.canTheNextPlayerMove()) {
+            if (state.isBlackTurn()) {
+                player2Label.setText("");
+                player1Label.setText(player1Name + "'s turn");
+                log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
+            } else {
+                player1Label.setText("");
+                player2Label.setText(player2Name + "'s turn");
+                log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
+            }
+        } else {
             state.setBlackTurn(!state.isBlackTurn());
             if (state.isBlackTurn()) {
                 player2Label.setText("");
@@ -349,16 +360,6 @@ public class GameController {
                 player2Label.setText(player2Name + "'s turn again");
                 log.info(player1Name + " removed piece from " + index + ".");
                 log.info(player1Name + " can't move, " + player2Name + " goes again.");
-            }
-        } else {
-            if (state.isBlackTurn()) {
-                player2Label.setText("");
-                player1Label.setText(player1Name + "'s turn");
-                log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
-            } else {
-                player1Label.setText("");
-                player2Label.setText(player2Name + "'s turn");
-                log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
             }
         }
 
