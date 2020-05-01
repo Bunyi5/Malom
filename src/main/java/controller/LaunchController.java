@@ -15,6 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+/**
+ * Controller class of the launch screen.
+ */
 @Slf4j
 public class LaunchController {
 
@@ -30,6 +33,12 @@ public class LaunchController {
     @FXML
     private Label errorLabel2;
 
+    /**
+     * Loads the game when the player clicks on the play button.
+     *
+     * @param actionEvent a click by the player
+     * @throws IOException if {@code fxmlLoader} can't load fxml file
+     */
     public void startAction(ActionEvent actionEvent) throws IOException {
 
         if (player1TextField.getText().isEmpty()) {

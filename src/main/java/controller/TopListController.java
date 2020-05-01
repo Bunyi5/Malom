@@ -23,6 +23,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Controller class of the top list screen.
+ */
 @Slf4j
 public class TopListController {
 
@@ -49,6 +52,12 @@ public class TopListController {
 
     private GameResultDao gameResultDao;
 
+    /**
+     * Loads back the launch screen when the player clicks on the main menu button.
+     *
+     * @param actionEvent a click by the player
+     * @throws IOException if {@code fxmlLoader} can't load fxml file
+     */
     public void back(ActionEvent actionEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
@@ -60,6 +69,9 @@ public class TopListController {
         log.info("Loading launch scene.");
     }
 
+    /**
+     * Initializes the top list fxml file.
+     */
     @FXML
     public void initialize() {
         gameResultDao = GameResultDao.getInstance();
@@ -97,4 +109,5 @@ public class TopListController {
 
         topListTable.setItems(observableResult);
     }
+
 }

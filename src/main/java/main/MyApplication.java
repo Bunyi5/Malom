@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * Starts the application.
+ */
 public class MyApplication extends Application {
 
     @Override

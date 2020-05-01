@@ -7,12 +7,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class representing the state of one game.
+ */
 public class MalomState {
 
+    /**
+     * Boolean which {@code true} if the black comes next.
+     */
     @Getter
     @Setter
     private boolean blackTurn = true;
 
+    /**
+     * Array that stores the board.
+     */
     private int[] board = {
             0, 0, 0, 0, 0, 0, 0, 0, //Outside Circle
             0, 0, 0, 0, 0, 0, 0, 0, //Middle Circle
@@ -21,36 +30,68 @@ public class MalomState {
             2, 2, 2, 2, 2, 2, 2, 2, 2 //White
     };
 
-    private boolean isBlack(int index) {
-        return board[index] == 1;
+    private int getColor(int index) {
+        return board[index];
     }
 
-    private boolean isWhite(int index) {
-        return board[index] == 2;
-    }
-
+    /**
+     * Returns how many black pieces are on the board.
+     *
+     * @return an int value which contains how many black pieces are on the board
+     */
     public int blackPieceNum() {
         return (int) Arrays.stream(board, 0, 24).filter(value -> value == 1).count();
     }
 
+    /**
+     * Returns how many white pieces are on the board.
+     *
+     * @return an int value which contains how many white pieces are on the board
+     */
     public int whitePieceNum() {
         return (int) Arrays.stream(board, 0, 24).filter(value -> value == 2).count();
     }
 
-    public boolean isPieceStoreEmpty() {
+    /**
+     * Returns whether all pieces are on the board.
+     *
+     * @return {@code true} if all pieces are on the board,
+     * {@code false} otherwise
+     */
+    public boolean isAllPiecesWereOnBoard() {
         return Arrays.stream(board, 24, 42).sum() == 0;
     }
 
-    public boolean isInPieceStoreOrEmptyStore(int index) {
-        return index > 23 || this.isPieceStoreEmpty();
+    /**
+     * Returns whether the piece on the board or all pieces was on the board.
+     *
+     * @param index the index of the examined piece
+     * @return {@code true} if the piece is not on the board
+     * or all pieces are on the board, {@code false} otherwise
+     */
+    public boolean isNotOnBoardOrAllPiecesWereOnBoard(int index) {
+        return index > 23 || this.isAllPiecesWereOnBoard();
     }
 
+    /**
+     * Returns whether that the color of the piece is the next who can step.
+     *
+     * @param index the index of the examined piece
+     * @return {@code true} if the piece is black and the black color comes next
+     * or the piece is white and the white color comes, {@code false} otherwise
+     */
     public boolean isThisColorNext(int index) {
-        if (this.isBlack(index) && blackTurn) {
+        if (getColor(index) == 1 && blackTurn) {
             return true;
-        } else return this.isWhite(index) && !blackTurn;
+        } else return getColor(index) == 2 && !blackTurn;
     }
 
+    /**
+     * Swaps to values on the board.
+     *
+     * @param a index of a piece
+     * @param b index of a piece
+     */
     public void swapPieceValues(int a, int b) {
         int temp = board[a];
         board[a] = board[b];
@@ -61,7 +102,7 @@ public class MalomState {
         int num = 0;
 
         for (int i = 0; i < 24; i++) {
-            if (board[i] == color && !this.isPieceInMill(i, color)) {
+            if (getColor(i) == color && !this.isPieceInMill(i, color)) {
                 num++;
             }
         }
@@ -69,7 +110,13 @@ public class MalomState {
         return num != 0;
     }
 
-    public boolean canItRemovePiece() {
+    /**
+     * Returns whether the next player can remove a piece from the opponent.
+     *
+     * @return {@code true} if the opponent has a piece which is not in mill,
+     * {@code false} otherwise
+     */
+    public boolean canRemovePiece() {
 
         if (blackTurn) {
             return canRemoveFromColor(1);
@@ -79,43 +126,62 @@ public class MalomState {
 
     }
 
+    /**
+     * Removes an element from the board.
+     *
+     * @param index the index of piece which will be removed
+     */
     public void removePiece(int index) {
         board[index] = 0;
     }
 
+    /**
+     * Returns whether the piece can jump on the board.
+     *
+     * @param index the index of the examined piece
+     * @return {@code true} if the piece is white and only 3 white left on the board
+     * or the piece is black and only 3 black left on the board, {@code false} otherwise
+     */
     public boolean canItJump(int index) {
-        return this.isWhite(index) && this.whitePieceNum() == 3 ||
-                this.isBlack(index) && this.blackPieceNum() == 3;
+        return getColor(index) == 2 && this.whitePieceNum() == 3 ||
+                getColor(index) == 1 && this.blackPieceNum() == 3;
     }
 
-    private boolean isColorCantStep(int color) {
+    private boolean canColorStep(int color) {
 
         int num = 0;
         List<Integer> where;
 
         for (int i = 0; i < 24; i++) {
-            if (board[i] == color) {
+            if (getColor(i) == color) {
                 where = this.whereCanThePieceMove(i);
-                for (int integer : where) {
-                    if (board[integer] == 0) {
+                for (int index : where) {
+                    if (getColor(index) == 0) {
                         num++;
                     }
                 }
             }
         }
 
-        return num == 0;
+        return num != 0;
     }
 
-    public boolean isTheNextPlayerCantMove() {
-        if (!this.isPieceStoreEmpty()) {
-            return false;
+    /**
+     * Returns whether the next player can't move on the board.
+     * Only after all pieces have been placed on the board.
+     *
+     * @return {@code true} if the player in his turn can't move a piece,
+     * {@code false} if not all pieces was on the board or the next player can move
+     */
+    public boolean canTheNextPlayerMove() {
+        if (!this.isAllPiecesWereOnBoard()) {
+            return true;
         }
         
         if (blackTurn) {
-            return isColorCantStep(1);
+            return canColorStep(1);
         } else {
-            return isColorCantStep(2);
+            return canColorStep(2);
         }
     }
     
@@ -175,6 +241,12 @@ public class MalomState {
         return where;
     }
 
+    /**
+     * Returns the list of integer which contains where the current piece can move.
+     *
+     * @param index the index of the examined piece
+     * @return the list of integer which contains where the current piece can move
+     */
     public List<Integer> whereCanThePieceMove(int index) {
 
         if (index % 2 == 0) {
@@ -250,22 +322,42 @@ public class MalomState {
 
     }
 
+    /**
+     * Returns whether the current piece gives someone a mill.
+     *
+     * @param index the index of the examined piece
+     * @return {@code true} if the piece is black and in mill or the piece is white and in mill,
+     * {@code false} otherwise
+     */
     public boolean isSomeoneHasMill(int index) {
         return this.isPieceInMill(index, 1) || this.isPieceInMill(index, 2);
     }
 
     private boolean isBlackWin(int index) {
-        return this.isPieceStoreEmpty() && this.whitePieceNum() == 3 && this.isPieceInMill(index, 1);
+        return this.isAllPiecesWereOnBoard() && this.whitePieceNum() == 3 && this.isPieceInMill(index, 1);
     }
 
     private boolean isWhiteWin(int index) {
-        return this.isPieceStoreEmpty() && this.blackPieceNum() == 3 && this.isPieceInMill(index, 2);
+        return this.isAllPiecesWereOnBoard() && this.blackPieceNum() == 3 && this.isPieceInMill(index, 2);
     }
 
+    /**
+     * Returns whether someone wins the game.
+     *
+     * @param index the index of the last moved piece
+     * @return {@code true} if the black or white wins the game
+     * {@code false} otherwise
+     */
     public boolean isGameEnded(int index) {
         return this.isBlackWin(index) || this.isWhiteWin(index);
     }
 
+    /**
+     * Returns the board in string format.
+     *
+     * @return a string which contains the board
+     */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < board.length; i++) {
@@ -285,10 +377,4 @@ public class MalomState {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        MalomState state = new MalomState();
-        state.swapPieceValues(6, 26);
-        state.removePiece(6);
-        System.out.println(state.toString());
-    }
 }

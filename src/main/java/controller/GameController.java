@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class of the game screen.
+ */
 @Slf4j
 public class GameController {
 
@@ -52,12 +55,21 @@ public class GameController {
     @FXML
     private Button exitButton;
 
+    /**
+     * Saves the players names in {@code player1Name} and {@code player2Name}.
+     *
+     * @param player1 the name of player 1
+     * @param player2 the name of player 2
+     */
     public void initializeData(String player1, String player2) {
         this.player1Name = player1;
         this.player2Name = player2;
-        player1Label.setText(this.player1Name + " turn");
+        player1Label.setText(this.player1Name + "'s turn");
     }
 
+    /**
+     * Initializes the game fxml file.
+     */
     @FXML
     public void initialize() {
 
@@ -71,6 +83,9 @@ public class GameController {
 
     }
 
+    /**
+     * Draws the game board.
+     */
     public void drawGame() {
 
         background.setImage(new Image(getClass().getResource("/pictures/board.png").toExternalForm()));
@@ -98,6 +113,13 @@ public class GameController {
 
     }
 
+    /**
+     * Starts a drag and drop gesture if the drag is valid.
+     * Allows move transfer mode, puts the image on the drag board.
+     * If all pieces were already on the board initialize {@code whereCanMove} list.
+     *
+     * @param mouseEvent a drag by the player
+     */
     public void drag(MouseEvent mouseEvent) {
 
         ImageView view = (ImageView) mouseEvent.getSource();
@@ -106,14 +128,14 @@ public class GameController {
 
             fromIndex = Integer.parseInt(view.getId());
 
-            if (state.isThisColorNext(fromIndex) && state.isInPieceStoreOrEmptyStore(fromIndex) && gameGoes) {
+            if (state.isThisColorNext(fromIndex) && state.isNotOnBoardOrAllPiecesWereOnBoard(fromIndex) && gameGoes) {
 
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();
                 content.putImage(view.getImage());
                 db.setContent(content);
 
-                if (state.isPieceStoreEmpty()) {
+                if (state.isAllPiecesWereOnBoard()) {
                     whereCanMove = state.whereCanThePieceMove(fromIndex);
                 }
 
@@ -123,13 +145,19 @@ public class GameController {
 
     }
 
+    /**
+     * Data is dragged over the target, accept it only if it is valid.
+     * Set accept transfer mode to move transfer.
+     *
+     * @param dragEvent a drag by the player
+     */
     public void dragOver(DragEvent dragEvent) {
 
         ImageView view = (ImageView) dragEvent.getSource();
 
         if (view.getOpacity() == 0.0 && dragEvent.getDragboard().hasImage()) {
 
-            if (state.isPieceStoreEmpty()) {
+            if (state.isAllPiecesWereOnBoard()) {
 
                 int index = Integer.parseInt(view.getId());
 
@@ -145,6 +173,13 @@ public class GameController {
 
     }
 
+    /**
+     * Data is dropped, if there is an image on the drag board reads it and uses it.
+     * Swaps the pieces values on the board, changes the turn, checks if someone has mill,
+     * checks that the game is over.
+     *
+     * @param dragEvent a drag by the player
+     */
     public void drop(DragEvent dragEvent) {
 
         Dragboard db = dragEvent.getDragboard();
@@ -167,6 +202,12 @@ public class GameController {
 
     }
 
+    /**
+     * The drag and drop gesture ended.
+     * If the data was successfully moved clears it.
+     *
+     * @param dragEvent a drag by the player
+     */
     public void dragDone(DragEvent dragEvent) {
 
         if (dragEvent.getTransferMode() == TransferMode.MOVE) {
@@ -181,6 +222,11 @@ public class GameController {
 
     }
 
+    /**
+     * If it can remove a piece removes it from the board on click.
+     *
+     * @param mouseEvent a click by the player
+     */
     public void pieceClick(MouseEvent mouseEvent) {
 
         if (mill && gameGoes) {
@@ -209,12 +255,12 @@ public class GameController {
         if (state.isBlackTurn()) {
             state.setBlackTurn(false);
             player1Label.setText("");
-            player2Label.setText(player2Name + " turn");
+            player2Label.setText(player2Name + "'s turn");
             log.info(player1Name + " moved piece from " + fromIndex + " to " + index + ", " + player2Name + " is next.");
         } else {
             state.setBlackTurn(true);
             player2Label.setText("");
-            player1Label.setText(player1Name + " turn");
+            player1Label.setText(player1Name + "'s turn");
             log.info(player2Name + " moved piece from " + fromIndex + " to " + index + ", " + player1Name + " is next.");
         }
 
@@ -222,15 +268,15 @@ public class GameController {
 
     private void millCheck(int index) {
 
-        if (state.canItRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
+        if (state.canRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
 
             if (state.isBlackTurn()) {
                 player1Label.setText("");
-                player2Label.setText(player2Name + " remove a piece");
+                player2Label.setText(player2Name + " removes");
                 log.info(player2Name + " has a mill and can remove a piece.");
             } else {
                 player2Label.setText("");
-                player1Label.setText(player1Name + " remove a piece");
+                player1Label.setText(player1Name + " removes");
                 log.info(player1Name + " has a mill and can remove a piece.");
             }
 
@@ -256,12 +302,12 @@ public class GameController {
 
             if (state.isBlackTurn()) {
                 player1Label.setText("");
-                player2Label.setText(player2Name + " win");
+                player2Label.setText(player2Name + " wins");
                 winner = player2Name;
                 log.info(player2Name + " wins the game.");
             } else {
                 player2Label.setText("");
-                player1Label.setText(player1Name + " win");
+                player1Label.setText(player1Name + " wins");
                 winner = player1Name;
                 log.info(player1Name + " wins the game.");
             }
@@ -271,17 +317,17 @@ public class GameController {
 
     private void nextPlayerCantMoveCheck() {
 
-        if (state.isTheNextPlayerCantMove() && !mill) {
+        if (!state.canTheNextPlayerMove() && !mill) {
 
             state.setBlackTurn(!state.isBlackTurn());
 
             if (state.isBlackTurn()) {
                 player2Label.setText("");
-                player1Label.setText(player1Name + " turn again");
+                player1Label.setText(player1Name + "'s turn again");
                 log.info(player2Name + " can't move, " + player1Name + " goes again.");
             } else {
                 player1Label.setText("");
-                player2Label.setText(player2Name + " turn again");
+                player2Label.setText(player2Name + "'s turn again");
                 log.info(player1Name + " can't move, " + player2Name + " goes again.");
             }
 
@@ -291,27 +337,27 @@ public class GameController {
 
     private void afterRemoveCheckNextPlayerCantMove(int index) {
 
-        if (state.isTheNextPlayerCantMove()) {
+        if (!state.canTheNextPlayerMove()) {
             state.setBlackTurn(!state.isBlackTurn());
             if (state.isBlackTurn()) {
                 player2Label.setText("");
-                player1Label.setText(player1Name + " turn again");
+                player1Label.setText(player1Name + "'s turn again");
                 log.info(player2Name + " removed piece from " + index + ".");
                 log.info(player2Name + " can't move, " + player1Name + " goes again.");
             } else {
                 player1Label.setText("");
-                player2Label.setText(player2Name + " turn again");
+                player2Label.setText(player2Name + "'s turn again");
                 log.info(player1Name + " removed piece from " + index + ".");
                 log.info(player1Name + " can't move, " + player2Name + " goes again.");
             }
         } else {
             if (state.isBlackTurn()) {
                 player2Label.setText("");
-                player1Label.setText(player1Name + " turn");
+                player1Label.setText(player1Name + "'s turn");
                 log.info(player2Name + " removed piece from " + index + ", " + player1Name + " is next.");
             } else {
                 player1Label.setText("");
-                player2Label.setText(player2Name + " turn");
+                player2Label.setText(player2Name + "'s turn");
                 log.info(player1Name + " removed piece from " + index + ", " + player2Name + " is next.");
             }
         }
@@ -330,6 +376,12 @@ public class GameController {
                 .build();
     }
 
+    /**
+     * Loads the top list when the player clicks on the exit button.
+     *
+     * @param actionEvent a click by the player
+     * @throws IOException if {@code fxmlLoader} can't load fxml file
+     */
     public void finishGame(ActionEvent actionEvent) throws IOException {
         gameResultDao.persist(getResult());
 
