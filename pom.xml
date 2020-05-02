@@ -8,8 +8,8 @@
     <packaging>jar</packaging>
     <version>1.0</version>
     <scm>
-        <connection>scm:git:git://github.com/Bunyi5/Malom.git</connection>
-        <developerConnection>scm:git:git@github.com/Bunyi5/Malom.git</developerConnection>
+        <connection>scm:git:https://github.com/Bunyi5/Malom.git</connection>
+        <developerConnection>scm:git:https://github.com/Bunyi5/Malom.git</developerConnection>
         <url>https://github.com/Bunyi5/Malom</url>
     </scm>
     <properties>
@@ -22,7 +22,19 @@
     </properties>
 
     <description>
-        malom game.
+        Malom is a strategy board game for two players.
+        The game is also known as Nine men's morris or Mill.
+        This is an ancient game, popular in Ancient Rome and the medieval period.
+        The board consists of a grid with twenty-four points.
+        Each player has nine pieces, or "men" coloured black and white.
+        Players try to form "mills" —three of their own piece lined horizontally or
+        vertically— allowing a player to remove an opponent's piece from the board.
+        A player wins by reducing the opponent to two pieces.
+
+        The game proceeds in three phases:
+        1. Placing pieces on vacant points,
+        2. Moving pieces to adjacent points,
+        3. Moving pieces to any vacant point when the player has been reduced to three pieces
     </description>
 
     <developers>
@@ -62,18 +74,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.0.Final</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>3.0.1-b11</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.199</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
