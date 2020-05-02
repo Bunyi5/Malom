@@ -23,13 +23,13 @@
     <Label fx:id="player1Label" layoutY="600.0" prefHeight="50.0" prefWidth="400.0" textFill="#000000"
            alignment="CENTER">
            <font>
-               <Font name="Tahoma" size="35.0"/>
+               <Font name="SansSerif Regular" size="35.0" />
            </font>
     </Label>
     <Label fx:id="player2Label" layoutX="400.0" layoutY="600.0" prefHeight="50.0" prefWidth="400.0" textFill="#cbd4d1"
            alignment="CENTER">
         <font>
-            <Font name="Tahoma" size="35.0"/>
+            <Font name="SansSerif Regular" size="35.0" />
         </font>
     </Label>
 

@@ -16,7 +16,6 @@ public class MyApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/launch.fxml"));
         primaryStage.setTitle("malom");
-        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.setX((Screen.getPrimary().getBounds().getWidth()/2)-300);
         primaryStage.setY((Screen.getPrimary().getBounds().getHeight()/2)-250);
