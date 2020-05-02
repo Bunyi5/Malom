@@ -31,6 +31,17 @@ public class MalomState {
     };
 
     /**
+     * Returns an integer which represents the color of the piece.
+     *
+     * @param index the index of the piece
+     * @return {@code 1} if the piece is black, {@code 2} if the piece is white,
+     * {@code 0} if there is no piece there
+     */
+    public int getColor(int index) {
+        return board[index];
+    }
+
+    /**
      * Swaps to values on the board.
      *
      * @param a index of a piece
@@ -49,17 +60,6 @@ public class MalomState {
      */
     public void removePiece(int index) {
         board[index] = 0;
-    }
-
-    /**
-     * Returns an integer which represents the color of the piece.
-     *
-     * @param index the index of the piece
-     * @return {@code 1} if the piece is black, {@code 2} if the piece is white,
-     * {@code 0} if there is no piece there
-     */
-    public int getColor(int index) {
-        return board[index];
     }
 
     /**
@@ -106,25 +106,6 @@ public class MalomState {
     }
 
     /**
-     * Returns whether someone wins the game.
-     *
-     * @param index the index of the last moved piece
-     * @return {@code true} if the black or white wins the game
-     * {@code false} otherwise
-     */
-    public boolean isGameEnded(int index) {
-        return this.isBlackWin(index) || this.isWhiteWin(index);
-    }
-
-    private boolean isBlackWin(int index) {
-        return this.isAllPiecesWereOnBoard() && this.whitePieceNum() == 3 && this.isPieceInMill(index, 1);
-    }
-
-    private boolean isWhiteWin(int index) {
-        return this.isAllPiecesWereOnBoard() && this.blackPieceNum() == 3 && this.isPieceInMill(index, 2);
-    }
-
-    /**
      * Returns whether all pieces are on the board.
      *
      * @return {@code true} if all pieces are on the board,
@@ -148,16 +129,15 @@ public class MalomState {
     /**
      * Returns whether the next player can remove a piece from the opponent.
      *
+     * @param index the index of the last moved piece
      * @return {@code true} if the opponent has a piece which is not in mill,
      * {@code false} otherwise
      */
-    public boolean canRemovePiece() {
+    public boolean canRemovePieceFromTheOtherPlayer(int index) {
 
-        if (blackTurn) {
-            return canRemoveFromColor(1);
-        } else {
+        if (getColor(index) == 1) {
             return canRemoveFromColor(2);
-        }
+        } else return canRemoveFromColor(1);
 
     }
 
@@ -180,7 +160,7 @@ public class MalomState {
      * @return {@code true} if the player in his turn can't move a piece,
      * {@code false} if not all pieces was on the board or the next player can move
      */
-    public boolean canTheNextPlayerMove() {
+    public boolean canThePlayerMoveInHisTurn() {
         if (!this.isAllPiecesWereOnBoard()) {
             return true;
         }
@@ -318,45 +298,64 @@ public class MalomState {
 
     private boolean isPieceInMillInCorner(int index, int color) {
         if (index == 0 || index == 8 || index == 16) {
-            return board[index] == color && board[index + 1] == color && board[index + 2] == color ||
-                    board[index] == color && board[index + 7] == color && board[index + 6] == color;
+            return getColor(index) == color && getColor(index + 1) == color && getColor(index + 2) == color ||
+                    getColor(index) == color && getColor(index + 7) == color && getColor(index + 6) == color;
         } else if (index == 6 || index == 14 || index == 22) {
-            return board[index] == color && board[index + 1] == color && board[index - 6] == color ||
-                    board[index] == color && board[index - 1] == color && board[index - 2] == color;
+            return getColor(index) == color && getColor(index + 1) == color && getColor(index - 6) == color ||
+                    getColor(index) == color && getColor(index - 1) == color && getColor(index - 2) == color;
         } else {
-            return board[index] == color && board[index + 1] == color && board[index + 2] == color ||
-                    board[index] == color && board[index - 1] == color && board[index - 2] == color;
+            return getColor(index) == color && getColor(index + 1) == color && getColor(index + 2) == color ||
+                    getColor(index) == color && getColor(index - 1) == color && getColor(index - 2) == color;
         }
     }
 
     private boolean isPieceInMillInOutsideCircle(int index, int color) {
         if (index == 7) {
-            return board[index] == color && board[index - 1] == color && board[0] == color ||
-                    board[index] == color && board[index + 8] == color && board[index + 16] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(0) == color ||
+                    getColor(index) == color && getColor(index + 8) == color && getColor(index + 16) == color;
         } else {
-            return board[index] == color && board[index - 1] == color && board[index + 1] == color ||
-                    board[index] == color && board[index + 8] == color && board[index + 16] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(index + 1) == color ||
+                    getColor(index) == color && getColor(index + 8) == color && getColor(index + 16) == color;
         }
     }
 
     private boolean isPieceInMillInMiddleCircle(int index, int color) {
         if (index == 15) {
-            return board[index] == color && board[index - 1] == color && board[8] == color ||
-                    board[index] == color && board[index - 8] == color && board[index + 8] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(8) == color ||
+                    getColor(index) == color && getColor(index - 8) == color && getColor(index + 8) == color;
         } else {
-            return board[index] == color && board[index - 1] == color && board[index + 1] == color ||
-                    board[index] == color && board[index - 8] == color && board[index + 8] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(index + 1) == color ||
+                    getColor(index) == color && getColor(index - 8) == color && getColor(index + 8) == color;
         }
     }
 
     private boolean isPieceInMillInInsideCircle(int index, int color) {
         if (index == 23) {
-            return board[index] == color && board[index - 1] == color && board[16] == color ||
-                    board[index] == color && board[index - 8] == color && board[index - 16] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(16) == color ||
+                    getColor(index) == color && getColor(index - 8) == color && getColor(index - 16) == color;
         } else {
-            return board[index] == color && board[index - 1] == color && board[index + 1] == color ||
-                    board[index] == color && board[index - 8] == color && board[index - 16] == color;
+            return getColor(index) == color && getColor(index - 1) == color && getColor(index + 1) == color ||
+                    getColor(index) == color && getColor(index - 8) == color && getColor(index - 16) == color;
         }
+    }
+
+    /**
+     * Returns whether someone wins the game.
+     *
+     * @param index the index of the last moved piece
+     * @return {@code true} if the black or white wins the game
+     * {@code false} otherwise
+     */
+    public boolean isGameEnded(int index) {
+        return this.isBlackWin(index) || this.isWhiteWin(index);
+    }
+
+    private boolean isBlackWin(int index) {
+        return this.isAllPiecesWereOnBoard() && this.whitePieceNum() == 3 && this.isPieceInMill(index, 1);
+    }
+
+    private boolean isWhiteWin(int index) {
+        return this.isAllPiecesWereOnBoard() && this.blackPieceNum() == 3 && this.isPieceInMill(index, 2);
     }
 
     /**
@@ -368,7 +367,7 @@ public class MalomState {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < board.length; i++) {
-            sb.append(board[i]).append(' ');
+            sb.append(getColor(i)).append(' ');
             if (i == 7) {
                 sb.append('\n');
             } else if (i == 15) {

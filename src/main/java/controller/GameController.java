@@ -217,7 +217,7 @@ public class GameController {
             view.setImage(transparent);
             view.setOpacity(0.0);
 
-            nextPlayerCantMoveCheck();
+            playerCanMoveInHisTurnCheck();
 
         }
 
@@ -269,7 +269,7 @@ public class GameController {
 
     private void millCheck(int index) {
 
-        if (state.canRemovePiece() && (mill = state.isSomeoneHasMill(index))) {
+        if (state.canRemovePieceFromTheOtherPlayer(index) && (mill = state.isSomeoneHasMill(index))) {
 
             if (state.isBlackTurn()) {
                 player1Label.setText("");
@@ -316,9 +316,9 @@ public class GameController {
 
     }
 
-    private void nextPlayerCantMoveCheck() {
+    private void playerCanMoveInHisTurnCheck() {
 
-        if (!state.canTheNextPlayerMove() && !mill) {
+        if (!state.canThePlayerMoveInHisTurn() && !mill) {
 
             state.setBlackTurn(!state.isBlackTurn());
 
@@ -338,7 +338,7 @@ public class GameController {
 
     private void afterRemoveCheckCanTheNextPlayerMove(int index) {
 
-        if (state.canTheNextPlayerMove()) {
+        if (state.canThePlayerMoveInHisTurn()) {
             if (state.isBlackTurn()) {
                 player2Label.setText("");
                 player1Label.setText(player1Name + "'s turn");
