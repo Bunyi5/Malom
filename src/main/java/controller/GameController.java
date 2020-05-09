@@ -129,7 +129,7 @@ public class GameController {
 
             fromIndex = Integer.parseInt(view.getId());
 
-            if (state.isThisColorNext(fromIndex) && state.isNotOnBoardOrAllPiecesWereOnBoard(fromIndex) && gameGoes) {
+            if (gameGoes && state.isThisColorNext(fromIndex) && state.isNotOnBoardOrAllPiecesWereOnBoard(fromIndex)) {
 
                 Dragboard db = view.startDragAndDrop(TransferMode.MOVE);
                 ClipboardContent content = new ClipboardContent();

@@ -13,7 +13,7 @@ import java.util.List;
 public class MalomState {
 
     /**
-     * Boolean which {@code true} if the black comes next.
+     * Boolean which {@code true} if the black comes next, {@code false} otherwise.
      */
     @Getter
     @Setter
